@@ -1,7 +1,7 @@
 # Trello
 
 | Trello Link                                   |
-|-----------------------------------------------|
+| --------------------------------------------- |
 | https://trello.com/b/ZgcM7V1K/closest-nursery |
 
 ## Workflow
