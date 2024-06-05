@@ -15,9 +15,10 @@ export default async function Home() {
   const data = await fetchData();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>PA181</h1>
-      <Map schools={data.features} />
-    </main>
+    <>
+      <main className="flex flex-col items-center justify-between pl-12 pr-12">
+        <Map schools={data.features} />
+      </main>
+    </>
   );
 }

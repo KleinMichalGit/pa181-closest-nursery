@@ -28,11 +28,15 @@ const Map = ({ schools }: MapType) => {
     });
   }, []);
 
+  function onMapClick(e: { latlng: string }) {
+    alert("You clicked the map at " + e.latlng);
+  }
+
   return (
     <MapContainer
       center={[49.195061, 16.606836]}
       zoom={13}
-      style={{ height: "100vh", width: "100%" }}
+      style={{ height: "90dvh", width: "100%" }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
