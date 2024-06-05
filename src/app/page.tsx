@@ -18,19 +18,6 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1>PA181</h1>
       <Map schools={data.features} />
-      {data.features.map(
-        ({
-          properties: { title, address, telephone, longitude, latitude, email },
-        }) => (
-          <div key={title} className="p-4 m-4 border border-gray-300">
-            <h2>{address}</h2>
-            <p>{telephone}</p>
-            <p>{longitude}</p>
-            <p>{latitude}</p>
-            <p>{email}</p>
-          </div>
-        ),
-      )}
     </main>
   );
 }
