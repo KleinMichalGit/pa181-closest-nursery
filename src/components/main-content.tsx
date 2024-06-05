@@ -4,11 +4,13 @@ import { useState } from "react";
 import Navigation from "@/components/navigation/navigation";
 import dynamic from "next/dynamic";
 import { MapType } from "@/types/map-type";
+import SideMenu from "@/components/navigation/side-menu";
 
 const Map = dynamic(() => import("../components/map"), { ssr: false });
 
 const MainContent = ({ schools }: MapType) => {
   const [filter, setFilter] = useState("");
+  const [isPositionVisible, setIsPositionVisible] = useState(false);
 
   const filteredSchools =
     filter === ""
@@ -32,8 +34,9 @@ const MainContent = ({ schools }: MapType) => {
   return (
     <>
       <Navigation setFilter={setFilter} />
-      <main className="flex flex-col items-center justify-between pl-12 pr-12">
-        <Map schools={filteredSchools} />
+      <main className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pl-4 pr-4">
+        <Map schools={filteredSchools} isPositionVisible={isPositionVisible} />
+        <SideMenu setIsPositionVisible={setIsPositionVisible} />
       </main>
     </>
   );

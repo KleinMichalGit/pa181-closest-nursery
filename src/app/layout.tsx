@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navigation from "@/components/navigation/navigation";
 import AboutModal from "@/components/modals/about-modal";
 import HighAccessibilityModal from "@/components/modals/high-accessibility-modal";
 
@@ -19,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="hide-scrollbar">
       <body className={inter.className}>
         {children}
         <AboutModal />

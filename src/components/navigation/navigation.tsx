@@ -29,16 +29,17 @@ const Navigation = ({ setFilter }: SetFilterType) => {
             alt="Flowbite Logo"
             width={30}
             height={30}
+            className="visible"
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white hidden md:block ">
             PA181 Closest Nursery
           </span>
         </Link>
         <div
-          className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          className="items-center justify-between flex w-auto order-1"
           id="navbar-search"
         >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+          <ul className="flex p-0 font-medium rounded-lg space-x-8 rtl:space-x-reverse flex-row mt-0 border-0">
             <li>
               <NavItem id={"about"} text={"About"} />
             </li>
