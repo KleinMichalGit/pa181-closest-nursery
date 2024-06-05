@@ -3,19 +3,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useEffect } from "react";
 import L from "leaflet";
-
-type MapType = {
-  schools: Array<{
-    properties: {
-      title: string;
-      address: string;
-      telephone: string;
-      longitude: number;
-      latitude: number;
-      email: string;
-    };
-  }>;
-};
+import { MapType } from "@/types/map-type";
 
 const Map = ({ schools }: MapType) => {
   useEffect(() => {
@@ -27,10 +15,6 @@ const Map = ({ schools }: MapType) => {
         "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
     });
   }, []);
-
-  function onMapClick(e: { latlng: string }) {
-    alert("You clicked the map at " + e.latlng);
-  }
 
   return (
     <MapContainer
@@ -46,7 +30,7 @@ const Map = ({ schools }: MapType) => {
         ({
           properties: { title, address, telephone, longitude, latitude, email },
         }) => (
-          <Marker position={[latitude, longitude]} key={title}>
+          <Marker position={[latitude, longitude]} key={Math.random()}>
             <Popup>
               {title} <br /> {address} <br /> {telephone} <br /> {email}
             </Popup>

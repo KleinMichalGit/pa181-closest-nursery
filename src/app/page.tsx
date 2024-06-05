@@ -1,7 +1,5 @@
+import MainContent from "@/components/main-content";
 import { Nursery } from "@/types/nursery";
-import dynamic from "next/dynamic";
-
-const Map = dynamic(() => import("../components/map"), { ssr: false });
 
 async function fetchData(): Promise<Nursery> {
   const response = await fetch(
@@ -13,12 +11,5 @@ async function fetchData(): Promise<Nursery> {
 
 export default async function Home() {
   const data = await fetchData();
-
-  return (
-    <>
-      <main className="flex flex-col items-center justify-between pl-12 pr-12">
-        <Map schools={data.features} />
-      </main>
-    </>
-  );
+  return <MainContent schools={data.features} />;
 }
