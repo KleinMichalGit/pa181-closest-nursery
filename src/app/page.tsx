@@ -1,4 +1,7 @@
 import { Nursery } from "@/types/nursery";
+import dynamic from "next/dynamic";
+
+const Map = dynamic(() => import("../components/map"), { ssr: false });
 
 async function fetchData(): Promise<Nursery> {
   const response = await fetch(
@@ -14,6 +17,7 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1>PA181</h1>
+      <Map schools={data.features} />
       {data.features.map(
         ({
           properties: { title, address, telephone, longitude, latitude, email },
