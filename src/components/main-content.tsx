@@ -3,14 +3,16 @@
 import { useState } from "react";
 import Navigation from "@/components/navigation/navigation";
 import dynamic from "next/dynamic";
-import { MapType } from "@/types/map-type";
+import { ClosestSchoolType, MapType } from "@/types/map-type";
 import SideMenu from "@/components/navigation/side-menu";
 
 const Map = dynamic(() => import("../components/map"), { ssr: false });
 
 const MainContent = ({ schools }: MapType) => {
   const [filter, setFilter] = useState("");
-  const [isPositionVisible, setIsPositionVisible] = useState(false);
+  const [closestSchool, setClosestSchool] = useState<ClosestSchoolType | null>(
+    null,
+  );
 
   const filteredSchools =
     filter === ""
@@ -35,8 +37,8 @@ const MainContent = ({ schools }: MapType) => {
     <>
       <Navigation setFilter={setFilter} />
       <main className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pl-4 pr-4">
-        <Map schools={filteredSchools} isPositionVisible={isPositionVisible} />
-        <SideMenu setIsPositionVisible={setIsPositionVisible} />
+        <Map schools={filteredSchools} setClosestSchool={setClosestSchool} />
+        <SideMenu closestSchool={closestSchool} />
       </main>
     </>
   );

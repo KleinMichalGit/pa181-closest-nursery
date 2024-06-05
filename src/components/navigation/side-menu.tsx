@@ -1,22 +1,37 @@
-"use client";
+import { ClosestSchoolType } from "@/types/map-type";
 
-type setIsPositionVisible = {
-  setIsPositionVisible: (value: boolean) => void;
-};
-
-const SideMenu = ({ setIsPositionVisible }: setIsPositionVisible) => {
+const SideMenu = ({
+  closestSchool,
+}: {
+  closestSchool: ClosestSchoolType | null;
+}) => {
   return (
-    <aside className="side-menu">
-      <ul>
-        <li>
-          <button
-            className="btn btn-primary"
-            onClick={() => setIsPositionVisible(true)}
-          >
-            Add your position
-          </button>
-        </li>
-      </ul>
+    <aside className="p-2.5 h-full" style={{ width: "15%" }}>
+      {closestSchool?.properties ? (
+        <>
+          <h3 className="font-bold text-lg select-none">Closest nursery</h3>
+
+          <div className="py-4">
+            <p className="text-warning">
+              {Math.round(closestSchool.properties.distance)} meters
+            </p>
+            <p>
+              {closestSchool.properties.title}
+              <br />
+              {closestSchool.properties.address}
+              <br />
+              {closestSchool.properties.telephone}
+              <br />
+              {closestSchool.properties.email}
+            </p>
+          </div>
+        </>
+      ) : (
+        <p>
+          To show the closest elementary school, please click on a map to set
+          your location.
+        </p>
+      )}
     </aside>
   );
 };

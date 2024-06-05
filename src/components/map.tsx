@@ -5,17 +5,11 @@ import {
   TileLayer,
   Marker,
   Popup,
-  useMap,
   useMapEvents,
 } from "react-leaflet";
 import { useEffect, useState } from "react";
 import L, { LatLng } from "leaflet";
-import { MapType } from "@/types/map-type";
-
-type MapProps = {
-  schools: MapType["schools"];
-  isPositionVisible: boolean;
-};
+import { ClosestSchoolType, MapType } from "@/types/map-type";
 
 function CurrentPosition() {
   const [currentPosition, setCurrentPosition] = useState<LatLng>(
@@ -37,7 +31,12 @@ function CurrentPosition() {
   );
 }
 
-const Map = ({ schools, isPositionVisible }: MapProps) => {
+const Map = ({
+  schools,
+  setClosestSchool,
+}: MapType & {
+  setClosestSchool: (school: ClosestSchoolType | null) => void;
+}) => {
   const [currentPosition, setCurrentPosition] = useState<LatLng[]>([]);
 
   const defaultIcon = new L.Icon({
@@ -55,14 +54,32 @@ const Map = ({ schools, isPositionVisible }: MapProps) => {
     popupAnchor: [0, -48],
   });
 
-  const closest = schools.map((school) => {
-    const { latitude, longitude } = school.properties;
-    const distance = Math.sqrt(
-      Math.pow(latitude - currentPosition[0].lat, 2) +
-        Math.pow(longitude - currentPosition[0].lng, 2),
-    );
-    return { school, distance };
-  });
+  useEffect(() => {
+    if (currentPosition.length > 0) {
+      const distances = schools.map((school) => {
+        const { latitude, longitude } = school.properties;
+        const distance = currentPosition[0]?.distanceTo(
+          new LatLng(latitude, longitude),
+        );
+
+        return { school, distance };
+      });
+
+      // Sort the distances array in ascending order
+      distances.sort((a, b) => a.distance - b.distance);
+
+      const closestSchool = distances[0].school;
+      setClosestSchool({
+        properties: {
+          title: closestSchool.properties.title,
+          address: closestSchool.properties.address,
+          telephone: closestSchool.properties.telephone,
+          email: closestSchool.properties.email,
+          distance: distances[0].distance,
+        },
+      });
+    }
+  }, [currentPosition]);
 
   const MapClickHandler = () => {
     useMapEvents({

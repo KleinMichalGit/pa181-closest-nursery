@@ -10,3 +10,13 @@ export type MapType = {
     };
   }>;
 };
+
+export type ClosestSchoolType = {
+  properties?: {
+    title: string;
+    address: string;
+    telephone: string;
+    email: string;
+    distance: number;
+  };
+};
