@@ -2,15 +2,17 @@
 
 import { useFontSizeContext } from "@/contexts/font-size-context";
 import { fontSizes } from "@/types/font-sizes";
+import { useLanguageContext } from "@/contexts/language-context";
 
 export const FontSizeSwitcher = () => {
   const { fontSize, setFontSize } = useFontSizeContext();
   const currentFontSize = fontSize || fontSizes[0]; // Use a default value if fontSize is undefined
+  const { translations } = useLanguageContext();
 
   return (
     <details className="collapse bg-base-200">
       <summary className="collapse-title text-xl font-medium">
-        Font Size
+        {translations.fontSize}
       </summary>
       <div className="collapse-content">
         <ul>

@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navigation from "@/components/navigation/navigation";
 import dynamic from "next/dynamic";
 import { ClosestSchoolType, MapType } from "@/types/map-type";
 import SideMenu from "@/components/navigation/side-menu";
+import { fetchTranslations } from "@/utils/translations";
 
 const Map = dynamic(() => import("../components/map"), { ssr: false });
 
@@ -13,6 +14,14 @@ const MainContent = ({ schools }: MapType) => {
   const [closestSchool, setClosestSchool] = useState<ClosestSchoolType | null>(
     null,
   );
+
+  const [translations, setTranslations] = useState<any>({});
+
+  useEffect(() => {
+    fetchTranslations("cz")
+      .then((data) => setTranslations(data))
+      .catch((error) => console.error("Error fetching translations:", error));
+  }, []);
 
   const filteredSchools =
     filter === ""

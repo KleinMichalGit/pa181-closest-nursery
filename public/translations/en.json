@@ -1,0 +1,12 @@
+{
+  "logo": "PA181 Closest Nursery",
+  "about": "About",
+  "accessibility": "Accessibility",
+  "search": "Search...",
+  "beforeSelectingCurrentPosition": "To show the closest nursery school, please click on a map to set your location.",
+  "language": "Language",
+  "colorTheme": "Color Theme",
+  "fontSize": "Font Size",
+  "close": "Close",
+  "aboutContent": "This is a web application that shows the closest nursery school to your location. The data is provided by the Ministry of Education, Culture, Sports, Science and Technology of Japan."
+}

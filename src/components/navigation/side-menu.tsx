@@ -1,10 +1,12 @@
 import { ClosestSchoolType } from "@/types/map-type";
+import { useLanguageContext } from "@/contexts/language-context";
 
 const SideMenu = ({
   closestSchool,
 }: {
   closestSchool: ClosestSchoolType | null;
 }) => {
+  const { translations } = useLanguageContext();
   return (
     <aside className="p-2.5 h-full w-full md:w-2/12">
       {closestSchool?.properties ? (
@@ -27,10 +29,7 @@ const SideMenu = ({
           </div>
         </>
       ) : (
-        <p>
-          To show the closest elementary school, please click on a map to set
-          your location.
-        </p>
+        <p>{translations.beforeSelectingCurrentPosition}</p>
       )}
     </aside>
   );

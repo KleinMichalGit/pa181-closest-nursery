@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import NavItem from "@/components/navigation/nav-item";
@@ -8,6 +6,7 @@ import Search from "@/components/navigation/search";
 import { CSVLink } from "react-csv";
 import { FaFileCsv } from "react-icons/fa";
 import { ClosestSchoolType } from "@/types/map-type";
+import { useLanguageContext } from "@/contexts/language-context";
 
 type NavigationType = {
   setFilter: (search: string) => void;
@@ -16,7 +15,7 @@ type NavigationType = {
 
 const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
   const [search, setSearch] = useState("");
-
+  const { language, translations } = useLanguageContext();
   const csvData = [
     ["title", "address", "telephone", "email", "distance (meters)"],
     [
@@ -37,10 +36,6 @@ const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
     setIsOpen(!isOpen);
   };
 
-  const closeDropdown = () => {
-    setIsOpen(false);
-  };
-
   return (
     <nav className="navbar bg-base-100">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 navbar-start">
@@ -56,7 +51,7 @@ const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
             className="visible"
           />
           <span className="self-center font-semibold whitespace-nowrap hidden md:block">
-            PA181 Closest Nursery
+            {translations.logo}
           </span>
         </Link>
       </div>
@@ -80,10 +75,10 @@ const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
           )}
 
           <li>
-            <NavItem id={"about"} text={"About"} />
+            <NavItem id={"about"} text={translations.about} />
           </li>
           <li>
-            <NavItem id="accessibility" text="Accessibility" />
+            <NavItem id="accessibility" text={translations.accessibility} />
           </li>
           <li>
             <Search setSearch={setSearch} />

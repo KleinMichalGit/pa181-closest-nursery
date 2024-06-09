@@ -2,14 +2,15 @@
 
 import { themes } from "@/types/themes";
 import { useThemeContext } from "@/contexts/theme-context";
+import { useLanguageContext } from "@/contexts/language-context";
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useThemeContext();
-
+  const { translations } = useLanguageContext();
   return (
     <details className="collapse bg-base-200">
       <summary className="collapse-title text-xl font-medium">
-        Color Theme
+        {translations.colorTheme}
       </summary>
       <div className="collapse-content">
         <ul>

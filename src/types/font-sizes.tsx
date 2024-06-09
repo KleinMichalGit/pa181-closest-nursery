@@ -1,6 +1,6 @@
-export type FontSize = "text-base" | "text-lg" | "text-xl" | "text-3xl";
+export type Language = "text-base" | "text-lg" | "text-xl" | "text-3xl";
 
-export const fontSizes: FontSize[] = [
+export const fontSizes: Language[] = [
   "text-base",
   "text-lg",
   "text-xl",

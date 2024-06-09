@@ -1,10 +1,10 @@
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { PropsWithChildren, createContext, useContext } from "react";
-import { FontSize, fontSizes } from "@/types/font-sizes";
+import { Language, fontSizes } from "@/types/font-sizes";
 
 type FontSizeContextType = {
-  fontSize: FontSize;
-  setFontSize: (fontSize: FontSize) => void;
+  fontSize: Language;
+  setFontSize: (fontSize: Language) => void;
 };
 
 const FontSizeContext = createContext<FontSizeContextType | null>(null);
@@ -13,7 +13,7 @@ const fontSizeLocalStorageKey = "font-size";
 
 export const FontSizeProvider = ({ children }: PropsWithChildren) => {
   const { localStorageValue: fontSize, storeToLocalStorage: setFontSize } =
-    useLocalStorage<FontSize>(fontSizeLocalStorageKey, fontSizes[0]);
+    useLocalStorage<Language>(fontSizeLocalStorageKey, fontSizes[0]);
 
   return (
     <FontSizeContext.Provider value={{ fontSize, setFontSize }}>
