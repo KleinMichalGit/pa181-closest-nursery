@@ -31,7 +31,7 @@ const Navigation = ({ setFilter }: SetFilterType) => {
             height={30}
             className="visible"
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap hidden md:block ">
+          <span className="self-center font-semibold whitespace-nowrap hidden md:block">
             PA181 Closest Nursery
           </span>
         </Link>

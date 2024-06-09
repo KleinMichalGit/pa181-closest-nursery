@@ -20,7 +20,7 @@ const Search = ({ setSearch }: StatisticsModalSearchBarProps) => {
         <div>
           <input
             type="text"
-            className="p-2.5 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            className="p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 max-w-60"
             placeholder="Search..."
             {...searchForm.register("search")}
           />

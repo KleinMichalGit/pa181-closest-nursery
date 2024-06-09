@@ -43,5 +43,12 @@ const config: Config = {
       "sunset",
     ],
   },
+  theme: {
+    extend: {
+      screens: {
+        md: "992px",
+      },
+    },
+  },
 };
 export default config;

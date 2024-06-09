@@ -1,10 +1,11 @@
 "use client";
 
-import { themes } from "@/types/themes";
-import { useThemeContext } from "@/contexts/theme-context";
+import { useFontSizeContext } from "@/contexts/font-size-context";
+import { fontSizes } from "@/types/font-sizes";
 
 export const FontSizeSwitcher = () => {
-  const { theme, setTheme } = useThemeContext();
+  const { fontSize, setFontSize } = useFontSizeContext();
+  const currentFontSize = fontSize || fontSizes[0]; // Use a default value if fontSize is undefined
 
   return (
     <details className="collapse bg-base-200">
@@ -13,29 +14,23 @@ export const FontSizeSwitcher = () => {
       </summary>
       <div className="collapse-content">
         <ul>
-          {themes.map((themeValue) => (
-            <li key={themeValue}>
+          {fontSizes.map((fontSizeValue) => (
+            <li key={fontSizeValue}>
               <div className="flex items-center">
-                {themeValue === theme ? (
-                  <input
-                    id={"default-radio-" + themeValue}
-                    type="radio"
-                    checked
-                    value={themeValue}
-                    name="default-radio"
-                  />
-                ) : (
-                  <input
-                    id={"default-radio-" + themeValue}
-                    type="radio"
-                    value={theme}
-                    name="default-radio"
-                    onClick={() => setTheme(themeValue)}
-                  />
-                )}
-
-                <label htmlFor={"default-radio-" + themeValue}>
-                  {themeValue}
+                <input
+                  id={"default-radio-" + fontSizeValue}
+                  type="radio"
+                  checked={fontSizeValue === currentFontSize}
+                  value={fontSizeValue}
+                  name="default-radio"
+                  onChange={() => setFontSize(fontSizeValue)}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  htmlFor={"default-radio-" + fontSizeValue}
+                  className="ml-2"
+                >
+                  {fontSizeValue.replace("text-", "Text ")}
                 </label>
               </div>
             </li>
