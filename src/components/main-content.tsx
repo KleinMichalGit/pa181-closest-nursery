@@ -36,9 +36,9 @@ const MainContent = ({ schools }: MapType) => {
   return (
     <>
       <Navigation setFilter={setFilter} />
-      <main className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto pl-4 pr-4 z-0 relative">
-        <Map schools={filteredSchools} setClosestSchool={setClosestSchool} />
+      <main className="max-w-screen-xl block md:flex justify-between mx-auto pl-4 pr-4 z-0 relative">
         <SideMenu closestSchool={closestSchool} />
+        <Map schools={filteredSchools} setClosestSchool={setClosestSchool} />
       </main>
     </>
   );

@@ -95,7 +95,8 @@ const Map = ({
     <MapContainer
       center={[49.195061, 16.606836]}
       zoom={13}
-      style={{ height: "calc(100dvh - 76px)", width: "85%" }}
+      className="w-full md:w-10/12"
+      style={{ height: "calc(100dvh - 76px)" }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
