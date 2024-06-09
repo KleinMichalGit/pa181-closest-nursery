@@ -1,6 +1,6 @@
 const HighAccessibilityModal = () => {
   return (
-    <dialog id="accessibility" className="modal sm:modal-middle">
+    <dialog id="accessibility" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box">
         <h3 className="font-bold text-lg select-none">High Accessibility</h3>
 

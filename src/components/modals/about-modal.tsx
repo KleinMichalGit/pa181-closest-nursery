@@ -2,7 +2,7 @@
 
 const AboutModal = () => {
   return (
-    <dialog id="about" className="modal sm:modal-middle">
+    <dialog id="about" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box">
         <h3 className="font-bold text-lg select-none">
           About PA181 Closest Nursery
