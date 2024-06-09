@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AboutModal from "@/components/modals/about-modal";
 import HighAccessibilityModal from "@/components/modals/high-accessibility-modal";
+import { Providers } from "@/app/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="hide-scrollbar">
       <body className={inter.className}>
-        {children}
-        <AboutModal />
-        <HighAccessibilityModal />
+        <Providers>
+          {children}
+          <AboutModal />
+          <HighAccessibilityModal />
+        </Providers>
       </body>
     </html>
   );
