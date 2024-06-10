@@ -78,7 +78,7 @@ const SideMenu = ({
                     }
                   >
                     <svg
-                      className="w-3.5 h-3.5 text-blue-700 dark:text-blue-500"
+                      className="w-3.5 h-3.5 text-blue-700"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"

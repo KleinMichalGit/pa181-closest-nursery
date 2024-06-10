@@ -28,7 +28,7 @@ const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
   ];
   useEffect(() => {
     setFilter(search);
-  }, [search, setFilter]);
+  }, [search]);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -65,7 +65,7 @@ const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
               <CSVLink
                 data={csvData}
                 filename={"closest_nursery.csv"}
-                className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 md:dark:hover:bg-transparent"
+                className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                 style={{ transform: "translateY(4px)" }}
                 target="_blank"
               >
@@ -116,7 +116,7 @@ const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
                   <CSVLink
                     data={csvData}
                     filename={"closest_nursery.csv"}
-                    className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 md:dark:hover:bg-transparent"
+                    className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                     target="_blank"
                     onClick={() => toggleDropdown()}
                   >

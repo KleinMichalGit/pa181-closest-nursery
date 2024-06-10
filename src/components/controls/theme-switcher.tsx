@@ -33,7 +33,7 @@ export const ThemeSwitcher = () => {
                       value={themeValue}
                       name="theme-radio"
                       onChange={() => setTheme(themeValue)}
-                      className="w-4 h-4 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                      className="w-4 h-4 focus:ring-blue-500 focus:ring-2"
                     />
 
                     <label
