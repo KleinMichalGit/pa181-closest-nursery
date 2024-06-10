@@ -10,9 +10,7 @@ const HighAccessibilityModal = () => {
   return (
     <dialog id="accessibility" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box">
-        <h3 className="font-bold text-lg select-none">
-          {translations.accessibility}
-        </h3>
+        <h3 className="font-bold select-none">{translations.accessibility}</h3>
 
         <div className="py-4">
           <LanguageSwitcher />

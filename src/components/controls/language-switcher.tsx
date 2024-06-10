@@ -2,6 +2,8 @@
 
 import { languages } from "@/types/languages";
 import { useLanguageContext } from "@/contexts/language-context";
+import { CZ, DE, ES, FR, US } from "country-flag-icons/react/3x2";
+import { HiLanguage } from "react-icons/hi2";
 
 export const LanguageSwitcher = () => {
   const { language, setLanguage } = useLanguageContext();
@@ -10,8 +12,11 @@ export const LanguageSwitcher = () => {
 
   return (
     <details className="collapse bg-base-200">
-      <summary className="collapse-title text-xl font-medium">
-        {translations.language}
+      <summary className="collapse-title font-medium">
+        <div className="flex justify-between">
+          <span>{translations.language}</span>
+          <HiLanguage className="w-5 h-5 mt-1" />
+        </div>
       </summary>
       <div className="collapse-content">
         <ul>
@@ -23,14 +28,29 @@ export const LanguageSwitcher = () => {
                   type="radio"
                   checked={languageValue === currentLanguage}
                   value={languageValue}
-                  name="default-radio"
+                  name="language-radio"
                   onChange={() => setLanguage(languageValue)}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label
                   htmlFor={"default-radio-" + languageValue}
-                  className="ml-2"
+                  className="ml-2 flex"
                 >
+                  {languageValue === "en" && (
+                    <US title="United States" className="w-5 mr-1" />
+                  )}
+                  {languageValue === "fr" && (
+                    <FR title="France" className="w-5 mr-1" />
+                  )}
+                  {languageValue === "es" && (
+                    <ES title="Spain" className="w-5 mr-1" />
+                  )}
+                  {languageValue === "de" && (
+                    <DE title="Germany" className="w-5 mr-1" />
+                  )}
+                  {languageValue === "cz" && (
+                    <CZ title="Czech Republic" className="w-5 mr-1" />
+                  )}
                   {languageValue.replace("text-", "Text ")}
                 </label>
               </div>

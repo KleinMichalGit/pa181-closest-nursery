@@ -8,5 +8,9 @@
   "colorTheme": "Zvolte barvu",
   "fontSize": "Velikost písma",
   "close": "Zavřít",
-  "aboutContent": "česky čeksy ur location. The data is provided by the Ministry of Education, Culture, Sports, Science and Technology of Japan."
+  "aboutContent": "česky čeksy ur location. The data is provided by the Ministry of Education, Culture, Sports, Science and Technology of Japan.",
+  "small": "Malé",
+  "medium": "Střední",
+  "large": "Velké",
+  "extraLarge": "Extra Velké"
 }

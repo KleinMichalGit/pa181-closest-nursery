@@ -8,5 +8,9 @@
   "colorTheme": "Color Theme",
   "fontSize": "Font Size",
   "close": "Close",
-  "aboutContent": "This is a web application that shows the closest nursery school to your location. The data is provided by the Ministry of Education, Culture, Sports, Science and Technology of Japan."
+  "aboutContent": "This is a web application that shows the closest nursery school to your location. The data is provided by the Ministry of Education, Culture, Sports, Science and Technology of Japan.",
+  "small": "Small",
+  "medium": "Medium",
+  "large": "Large",
+  "extraLarge": "Extra Large"
 }
