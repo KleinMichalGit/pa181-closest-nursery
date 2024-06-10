@@ -10,7 +10,6 @@ import {
 import { useEffect, useState } from "react";
 import L, { LatLng } from "leaflet";
 import { ClosestSchoolType, MapType } from "@/types/map-type";
-
 function CurrentPosition() {
   const [currentPosition, setCurrentPosition] = useState<LatLng>(
     new LatLng(49.195061, 16.606836),
@@ -92,42 +91,51 @@ const Map = ({
   };
 
   return (
-    <MapContainer
-      center={[49.195061, 16.606836]}
-      zoom={13}
-      className="w-full"
-      style={{ height: "calc(100dvh - 76px)" }}
-    >
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://github.com/KleinMichalGit/pa181-closest-nursery">PA181</a> contributors'
-      />
-      {schools.map(
-        ({
-          properties: { title, address, telephone, longitude, latitude, email },
-        }) => (
+    <>
+      <MapContainer
+        center={[49.195061, 16.606836]}
+        zoom={13}
+        className="w-full"
+        style={{ height: "calc(100dvh - 76px)" }}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://github.com/KleinMichalGit/pa181-closest-nursery">PA181</a> contributors'
+        />
+        {schools.map(
+          ({
+            properties: {
+              title,
+              address,
+              telephone,
+              longitude,
+              latitude,
+              email,
+            },
+          }) => (
+            <Marker
+              position={[latitude, longitude]}
+              key={Math.random()}
+              icon={defaultIcon}
+            >
+              <Popup>
+                {title} <br /> {address} <br /> {telephone} <br /> {email}
+              </Popup>
+            </Marker>
+          ),
+        )}
+        <MapClickHandler />
+        {currentPosition.map((position) => (
           <Marker
-            position={[latitude, longitude]}
+            position={position}
             key={Math.random()}
-            icon={defaultIcon}
+            icon={currentPositionIcon}
           >
-            <Popup>
-              {title} <br /> {address} <br /> {telephone} <br /> {email}
-            </Popup>
+            <Popup>Your position</Popup>
           </Marker>
-        ),
-      )}
-      <MapClickHandler />
-      {currentPosition.map((position) => (
-        <Marker
-          position={position}
-          key={Math.random()}
-          icon={currentPositionIcon}
-        >
-          <Popup>Your position</Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+        ))}
+      </MapContainer>
+    </>
   );
 };
 
