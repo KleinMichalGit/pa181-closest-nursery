@@ -7,28 +7,9 @@ import {
   Popup,
   useMapEvents,
 } from "react-leaflet";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import L, { LatLng } from "leaflet";
 import { ClosestSchoolType, MapType } from "@/types/map-type";
-function CurrentPosition() {
-  const [currentPosition, setCurrentPosition] = useState<LatLng>(
-    new LatLng(49.195061, 16.606836),
-  );
-  const map = useMapEvents({
-    click: () => {
-      map.locate();
-    },
-    locationfound: (location) => {
-      setCurrentPosition(location.latlng);
-    },
-  });
-
-  return (
-    <Marker position={currentPosition}>
-      <Popup>Your position</Popup>
-    </Marker>
-  );
-}
 
 const Map = ({
   schools,
@@ -37,6 +18,7 @@ const Map = ({
   setClosestSchools: (schools: ClosestSchoolType[] | null) => void;
 }) => {
   const [currentPosition, setCurrentPosition] = useState<LatLng[]>([]);
+  const markersRef = useRef<{ [key: string]: L.Marker }>({});
 
   const defaultIcon = new L.Icon({
     iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
@@ -78,8 +60,15 @@ const Map = ({
           },
         })),
       );
+
+      // Open the popup for the closest marker
+      const closestSchool = distances[0].school;
+      const closestMarker = markersRef.current[closestSchool.properties.title];
+      if (closestMarker) {
+        closestMarker.openPopup();
+      }
     }
-  }, [currentPosition]);
+  }, [currentPosition, schools, setClosestSchools]);
 
   const MapClickHandler = () => {
     useMapEvents({
@@ -116,8 +105,13 @@ const Map = ({
           }) => (
             <Marker
               position={[latitude, longitude]}
-              key={Math.random()}
+              key={title}
               icon={defaultIcon}
+              ref={(marker) => {
+                if (marker) {
+                  markersRef.current[title] = marker;
+                }
+              }}
             >
               <Popup>
                 {title} <br /> {address} <br /> {telephone} <br /> {email}
@@ -129,7 +123,7 @@ const Map = ({
         {currentPosition.map((position) => (
           <Marker
             position={position}
-            key={Math.random()}
+            key={position.toString()}
             icon={currentPositionIcon}
           >
             <Popup>Your position</Popup>
