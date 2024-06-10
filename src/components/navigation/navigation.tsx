@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import NavItem from "@/components/navigation/nav-item";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Search from "@/components/navigation/search";
 import { CSVLink } from "react-csv";
-import { FaFileCsv } from "react-icons/fa";
+import { FaFileCsv, FaPrint } from "react-icons/fa";
 import { ClosestSchoolType } from "@/types/map-type";
 import { useLanguageContext } from "@/contexts/language-context";
 
@@ -16,6 +16,7 @@ type NavigationType = {
 const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
   const [search, setSearch] = useState("");
   const { translations } = useLanguageContext();
+  const printRef = useRef<HTMLDivElement>(null);
 
   const headers = [
     { label: "k-th closest", key: "kthclosest" },
@@ -46,6 +47,17 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
     setIsOpen(!isOpen);
   };
 
+  const handlePrint = () => {
+    if (printRef.current) {
+      const printContents = printRef.current.innerHTML;
+      const originalContents = document.body.innerHTML;
+      document.body.innerHTML = printContents;
+      window.print();
+      document.body.innerHTML = originalContents;
+      window.location.reload();
+    }
+  };
+
   return (
     <nav className="navbar bg-base-100">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 navbar-start">
@@ -71,20 +83,30 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
       <div className="navbar-end md:pr-4">
         <ul className="p-0 font-medium rounded-lg space-x-8 rtl:space-x-reverse flex-row mt-0 border-0 hidden md:flex">
           {closestSchools !== null && (
-            <li>
-              <CSVLink
-                data={csvData}
-                headers={headers}
-                filename={"closest_nursery.csv"}
-                className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-                style={{ transform: "translateY(4px)" }}
-                target="_blank"
-              >
-                <FaFileCsv />
-              </CSVLink>
-            </li>
+            <>
+              <li>
+                <CSVLink
+                  data={csvData}
+                  headers={headers}
+                  filename={"closest_nursery.csv"}
+                  className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+                  style={{ transform: "translateY(4px)" }}
+                  target="_blank"
+                >
+                  <FaFileCsv />
+                </CSVLink>
+              </li>
+              <li>
+                <button
+                  onClick={handlePrint}
+                  className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+                  style={{ transform: "translateY(4px)" }}
+                >
+                  <FaPrint />
+                </button>
+              </li>
+            </>
           )}
-
           <li>
             <NavItem id={"about"} text={translations.about} />
           </li>
@@ -123,20 +145,32 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
               className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               {closestSchools !== null && (
-                <li>
-                  <CSVLink
-                    data={csvData}
-                    headers={headers}
-                    filename={"closest_nursery.csv"}
-                    className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-                    target="_blank"
-                    onClick={() => toggleDropdown()}
-                  >
-                    Export <FaFileCsv />
-                  </CSVLink>
-                </li>
+                <>
+                  <li>
+                    <CSVLink
+                      data={csvData}
+                      headers={headers}
+                      filename={"closest_nursery.csv"}
+                      className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+                      target="_blank"
+                      onClick={() => toggleDropdown()}
+                    >
+                      Export <FaFileCsv />
+                    </CSVLink>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => {
+                        toggleDropdown();
+                        handlePrint();
+                      }}
+                      className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
+                    >
+                      Print <FaPrint />
+                    </button>
+                  </li>
+                </>
               )}
-
               <li>
                 <NavItem
                   id={"about"}
@@ -154,6 +188,34 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
             </ul>
           )}
         </div>
+      </div>
+
+      {/* Hidden print area */}
+      <div ref={printRef} style={{ display: "none" }}>
+        <table>
+          <thead>
+            <tr>
+              <th>k-th closest</th>
+              <th>title</th>
+              <th>address</th>
+              <th>telephone</th>
+              <th>email</th>
+              <th>distance (meters)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {csvData.map((row, index) => (
+              <tr key={index}>
+                <td>{row.kthclosest}</td>
+                <td>{row.title}</td>
+                <td>{row.address}</td>
+                <td>{row.telephone}</td>
+                <td>{row.email}</td>
+                <td>{row.distance}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </nav>
   );

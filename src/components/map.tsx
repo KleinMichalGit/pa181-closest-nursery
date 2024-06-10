@@ -105,7 +105,7 @@ const Map = ({
           }) => (
             <Marker
               position={[latitude, longitude]}
-              key={title}
+              key={Math.random()}
               icon={defaultIcon}
               ref={(marker) => {
                 if (marker) {
@@ -123,7 +123,7 @@ const Map = ({
         {currentPosition.map((position) => (
           <Marker
             position={position}
-            key={position.toString()}
+            key={Math.random()}
             icon={currentPositionIcon}
           >
             <Popup>Your position</Popup>
