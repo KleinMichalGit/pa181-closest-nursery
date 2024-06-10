@@ -8,7 +8,7 @@ const SideMenu = ({
 }) => {
   const { translations } = useLanguageContext();
   return (
-    <aside className="p-2.5 h-full w-full md:w-2/12">
+    <aside className="p-2.5 h-full w-full md:w-80">
       {closestSchool?.properties ? (
         <>
           <h3 className="font-bold text-lg select-none">Closest nursery</h3>

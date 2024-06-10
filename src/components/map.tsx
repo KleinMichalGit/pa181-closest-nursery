@@ -95,7 +95,7 @@ const Map = ({
     <MapContainer
       center={[49.195061, 16.606836]}
       zoom={13}
-      className="w-full md:w-10/12"
+      className="w-full"
       style={{ height: "calc(100dvh - 76px)" }}
     >
       <TileLayer

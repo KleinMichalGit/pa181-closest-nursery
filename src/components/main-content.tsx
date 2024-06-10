@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navigation from "@/components/navigation/navigation";
 import dynamic from "next/dynamic";
 import { ClosestSchoolType, MapType } from "@/types/map-type";
 import SideMenu from "@/components/navigation/side-menu";
-import { fetchTranslations } from "@/utils/translations";
 
 const Map = dynamic(() => import("../components/map"), { ssr: false });
 
@@ -14,14 +13,6 @@ const MainContent = ({ schools }: MapType) => {
   const [closestSchool, setClosestSchool] = useState<ClosestSchoolType | null>(
     null,
   );
-
-  const [translations, setTranslations] = useState<any>({});
-
-  useEffect(() => {
-    fetchTranslations("cz")
-      .then((data) => setTranslations(data))
-      .catch((error) => console.error("Error fetching translations:", error));
-  }, []);
 
   const filteredSchools =
     filter === ""
@@ -45,7 +36,7 @@ const MainContent = ({ schools }: MapType) => {
   return (
     <>
       <Navigation setFilter={setFilter} closestSchool={closestSchool} />
-      <main className="max-w-screen-xl block md:flex justify-between mx-auto pl-4 pr-4 z-0 relative">
+      <main className="block md:flex justify-between mx-auto pl-4 pr-4 z-0 relative">
         <SideMenu closestSchool={closestSchool} />
         <Map schools={filteredSchools} setClosestSchool={setClosestSchool} />
       </main>
