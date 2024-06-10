@@ -7,7 +7,7 @@ import {
   Popup,
   useMapEvents,
 } from "react-leaflet";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import L, { LatLng } from "leaflet";
 import { ClosestSchoolType, MapType } from "@/types/map-type";
 
@@ -35,7 +35,7 @@ const Map = ({
     popupAnchor: [0, -48],
   });
 
-  useEffect(() => {
+  const calculateClosestSchools = useCallback(() => {
     if (currentPosition.length > 0) {
       const distances = schools.map((school) => {
         const { latitude, longitude } = school.properties;
@@ -63,12 +63,17 @@ const Map = ({
 
       // Open the popup for the closest marker
       const closestSchool = distances[0].school;
-      const closestMarker = markersRef.current[closestSchool.properties.title];
+      const closestMarker =
+        markersRef.current[closestSchool.properties.objectid];
       if (closestMarker) {
         closestMarker.openPopup();
       }
     }
-  }, [currentPosition, schools, setClosestSchools]);
+  }, [currentPosition]);
+
+  useEffect(() => {
+    calculateClosestSchools();
+  }, [currentPosition]);
 
   const MapClickHandler = () => {
     useMapEvents({
@@ -95,6 +100,7 @@ const Map = ({
         {schools.map(
           ({
             properties: {
+              objectid,
               title,
               address,
               telephone,
@@ -109,7 +115,7 @@ const Map = ({
               icon={defaultIcon}
               ref={(marker) => {
                 if (marker) {
-                  markersRef.current[title] = marker;
+                  markersRef.current[objectid] = marker;
                 }
               }}
             >
@@ -123,7 +129,7 @@ const Map = ({
         {currentPosition.map((position) => (
           <Marker
             position={position}
-            key={Math.random()}
+            key={position.toString()}
             icon={currentPositionIcon}
           >
             <Popup>Your position</Popup>
