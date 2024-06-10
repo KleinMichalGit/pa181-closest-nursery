@@ -58,7 +58,7 @@ const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
       <div className="navbar-center block md:hidden">
         <Search setSearch={setSearch} />
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end md:pr-4">
         <ul className="p-0 font-medium rounded-lg space-x-8 rtl:space-x-reverse flex-row mt-0 border-0 hidden md:flex">
           {closestSchool !== null && (
             <li>
