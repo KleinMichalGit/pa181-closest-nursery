@@ -28,7 +28,7 @@ const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
   ];
   useEffect(() => {
     setFilter(search);
-  }, [search]);
+  }, [search, setFilter]);
 
   const [isOpen, setIsOpen] = useState(false);
 

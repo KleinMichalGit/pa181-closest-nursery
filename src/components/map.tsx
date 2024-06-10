@@ -78,7 +78,7 @@ const Map = ({
         },
       });
     }
-  }, [currentPosition]);
+  }, [currentPosition, schools, setClosestSchool]);
 
   const MapClickHandler = () => {
     useMapEvents({
