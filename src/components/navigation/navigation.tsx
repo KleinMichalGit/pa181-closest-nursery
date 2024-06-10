@@ -10,22 +10,32 @@ import { useLanguageContext } from "@/contexts/language-context";
 
 type NavigationType = {
   setFilter: (search: string) => void;
-  closestSchool: ClosestSchoolType | null;
+  closestSchools: ClosestSchoolType[] | null;
 };
 
-const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
+const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
   const [search, setSearch] = useState("");
-  const { language, translations } = useLanguageContext();
-  const csvData = [
-    ["title", "address", "telephone", "email", "distance (meters)"],
-    [
-      closestSchool?.properties?.title,
-      closestSchool?.properties?.address,
-      closestSchool?.properties?.telephone,
-      closestSchool?.properties?.email,
-      Math.round(closestSchool?.properties?.distance ?? 0),
-    ],
+  const { translations } = useLanguageContext();
+
+  const headers = [
+    { label: "k-th closest", key: "kthclosest" },
+    { label: "title", key: "title" },
+    { label: "address", key: "address" },
+    { label: "telephone", key: "telephone" },
+    { label: "email", key: "email" },
+    { label: "distance (meters)", key: "distance" },
   ];
+
+  const csvData =
+    closestSchools?.map((school, index) => ({
+      kthclosest: index,
+      title: school?.properties?.title,
+      address: school?.properties?.address,
+      telephone: school?.properties?.telephone,
+      email: school?.properties?.email,
+      distance: Math.round(school?.properties?.distance ?? 0),
+    })) || [];
+
   useEffect(() => {
     setFilter(search);
   }, [search]);
@@ -60,10 +70,11 @@ const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
       </div>
       <div className="navbar-end md:pr-4">
         <ul className="p-0 font-medium rounded-lg space-x-8 rtl:space-x-reverse flex-row mt-0 border-0 hidden md:flex">
-          {closestSchool !== null && (
+          {closestSchools !== null && (
             <li>
               <CSVLink
                 data={csvData}
+                headers={headers}
                 filename={"closest_nursery.csv"}
                 className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                 style={{ transform: "translateY(4px)" }}
@@ -111,10 +122,11 @@ const Navigation = ({ setFilter, closestSchool }: NavigationType) => {
               tabIndex={0}
               className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              {closestSchool !== null && (
+              {closestSchools !== null && (
                 <li>
                   <CSVLink
                     data={csvData}
+                    headers={headers}
                     filename={"closest_nursery.csv"}
                     className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                     target="_blank"

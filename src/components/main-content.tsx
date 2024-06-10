@@ -10,9 +10,9 @@ const Map = dynamic(() => import("../components/map"), { ssr: false });
 
 const MainContent = ({ schools }: MapType) => {
   const [filter, setFilter] = useState("");
-  const [closestSchool, setClosestSchool] = useState<ClosestSchoolType | null>(
-    null,
-  );
+  const [closestSchools, setClosestSchools] = useState<
+    ClosestSchoolType[] | null
+  >(null);
 
   const filteredSchools =
     filter === ""
@@ -35,10 +35,10 @@ const MainContent = ({ schools }: MapType) => {
 
   return (
     <>
-      <Navigation setFilter={setFilter} closestSchool={closestSchool} />
+      <Navigation setFilter={setFilter} closestSchools={closestSchools} />
       <main className="block md:flex justify-between mx-auto pl-4 pr-4 z-0 relative">
-        <SideMenu closestSchool={closestSchool} />
-        <Map schools={filteredSchools} setClosestSchool={setClosestSchool} />
+        <SideMenu closestSchools={closestSchools} />
+        <Map schools={filteredSchools} setClosestSchools={setClosestSchools} />
       </main>
     </>
   );

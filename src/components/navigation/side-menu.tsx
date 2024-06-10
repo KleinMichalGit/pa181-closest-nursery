@@ -8,14 +8,14 @@ import {
 import { useRef, useState } from "react";
 
 const SideMenu = ({
-  closestSchool,
+  closestSchools,
 }: {
-  closestSchool: ClosestSchoolType | null;
+  closestSchools: ClosestSchoolType[] | null;
 }) => {
   const { translations } = useLanguageContext();
   const [copySuccess, setCopySuccess] = useState(false);
   const addressRef = useRef<HTMLInputElement>(null);
-
+  const closestSchool = closestSchools?.[0];
   const copyToClipboard = (ref: React.RefObject<HTMLInputElement>) => {
     const text = ref.current?.value;
     if (text) {

@@ -32,9 +32,9 @@ function CurrentPosition() {
 
 const Map = ({
   schools,
-  setClosestSchool,
+  setClosestSchools,
 }: MapType & {
-  setClosestSchool: (school: ClosestSchoolType | null) => void;
+  setClosestSchools: (schools: ClosestSchoolType[] | null) => void;
 }) => {
   const [currentPosition, setCurrentPosition] = useState<LatLng[]>([]);
 
@@ -67,16 +67,17 @@ const Map = ({
       // Sort the distances array in ascending order
       distances.sort((a, b) => a.distance - b.distance);
 
-      const closestSchool = distances[0].school;
-      setClosestSchool({
-        properties: {
-          title: closestSchool.properties.title,
-          address: closestSchool.properties.address,
-          telephone: closestSchool.properties.telephone,
-          email: closestSchool.properties.email,
-          distance: distances[0].distance,
-        },
-      });
+      setClosestSchools(
+        distances.map((distance) => ({
+          properties: {
+            title: distance.school.properties.title,
+            address: distance.school.properties.address,
+            telephone: distance.school.properties.telephone,
+            email: distance.school.properties.email,
+            distance: distance.distance,
+          },
+        })),
+      );
     }
   }, [currentPosition]);
 
