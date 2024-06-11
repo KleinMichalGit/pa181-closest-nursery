@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Navigation from "@/components/navigation/navigation";
 import SideMenu from "@/components/navigation/side-menu";
 import { ClosestSchoolType, MapType } from "@/types/map-type";
 
+// Dynamically import the Map component with client-side rendering only
 const Map = dynamic(() => import("../components/map"), { ssr: false });
 
 const MainContent: React.FC<MapType> = ({ schools }) => {
@@ -13,24 +14,28 @@ const MainContent: React.FC<MapType> = ({ schools }) => {
   const [closestSchools, setClosestSchools] = useState<
     ClosestSchoolType[] | null
   >(null);
+  const [filteredSchools, setFilteredSchools] = useState(schools);
 
   const handleFilterChange = (filterValue: string) => {
     setFilter(filterValue);
   };
 
-  const filteredSchools = schools.filter((school) => {
-    const { address, title, telephone, email, director, website } =
-      school.properties;
-    const filterLower = filter.toLowerCase();
-    return (
-      address.toLowerCase().includes(filterLower) ||
-      title.toLowerCase().includes(filterLower) ||
-      telephone.toLowerCase().includes(filterLower) ||
-      email.toLowerCase().includes(filterLower) ||
-      director.toLowerCase().includes(filterLower) ||
-      website.toLowerCase().includes(filterLower)
-    );
-  });
+  useEffect(() => {
+    const lowerCaseFilter = filter.toLowerCase();
+    const newFilteredSchools = schools.filter((school) => {
+      const { address, title, telephone, email, director, website } =
+        school.properties;
+      return (
+        address.toLowerCase().includes(lowerCaseFilter) ||
+        title.toLowerCase().includes(lowerCaseFilter) ||
+        telephone.toLowerCase().includes(lowerCaseFilter) ||
+        email.toLowerCase().includes(lowerCaseFilter) ||
+        director.toLowerCase().includes(lowerCaseFilter) ||
+        website.toLowerCase().includes(lowerCaseFilter)
+      );
+    });
+    setFilteredSchools(newFilteredSchools);
+  }, [filter, schools]);
 
   return (
     <>

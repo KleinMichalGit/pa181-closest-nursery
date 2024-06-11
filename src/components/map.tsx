@@ -9,7 +9,7 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import L, { LatLng } from "leaflet";
-import { ClosestSchoolType, MapType } from "@/types/map-type";
+import { ClosestSchoolType, MapType, SchoolProperties } from "@/types/map-type";
 import MapPopup from "@/components/map/map-popup";
 
 interface MapProps extends MapType {
@@ -31,12 +31,24 @@ const currentPositionIcon = new L.Icon({
   popupAnchor: [0, -48],
 });
 
+const closestSchoolIsAmongFilteredSchools = (
+  closestSchoolID: number,
+  filteredSchools: SchoolProperties[],
+) => {
+  return filteredSchools.some(
+    (filteredSchool) => filteredSchool.objectid === closestSchoolID,
+  );
+};
+
 const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
   const [currentPosition, setCurrentPosition] = useState<LatLng[]>([]);
   const markersRef = useRef<{ [key: string]: L.Marker }>({});
 
   const calculateClosestSchools = useCallback(() => {
-    if (currentPosition.length === 0) return;
+    if (currentPosition.length === 0) {
+      setClosestSchools(null);
+      return;
+    }
 
     const distances = schools.map((school) => {
       const { latitude, longitude } = school.properties;
@@ -47,27 +59,40 @@ const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
       return { school, distance };
     });
 
-    if (distances.length === 0) return;
+    if (distances.length === 0) {
+      setClosestSchools(null);
+      return;
+    }
 
     distances.sort((a, b) => a.distance - b.distance);
 
-    setClosestSchools(
-      distances.map(({ school, distance }) => ({
-        properties: {
-          ...school.properties,
-          distance,
-        },
-      })),
-    );
+    if (
+      closestSchoolIsAmongFilteredSchools(
+        distances[0].school.properties.objectid,
+        schools.map(({ properties }) => properties),
+      )
+    ) {
+      setClosestSchools(
+        distances.map(({ school, distance }) => ({
+          properties: {
+            ...school.properties,
+            distance,
+          },
+        })),
+      );
+    } else {
+      setClosestSchools(null);
+      return;
+    }
 
     const closestSchool = distances[0].school;
     const closestMarker = markersRef.current[closestSchool.properties.objectid];
     closestMarker?.openPopup();
-  }, [currentPosition]);
+  }, [currentPosition, schools]);
 
   useEffect(() => {
     calculateClosestSchools();
-  }, [currentPosition]);
+  }, [currentPosition, schools]);
 
   const MapClickHandler: React.FC = () => {
     useMapEvents({
