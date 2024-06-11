@@ -36,19 +36,19 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
         >
           <Image
             src="/favicon.ico"
-            alt={translations.logo}
+            alt="Logo"
             width={30}
             height={30}
             className="visible"
             id="logo"
           />
           <span className="self-center font-semibold whitespace-nowrap hidden md:block">
-            <label htmlFor="logo">{translations.logo}</label>
+            <h1>{translations.logo}</h1>
           </span>
         </Link>
       </div>
       <div className="navbar-center block md:hidden">
-        <Search setSearch={setSearch} />
+        <Search setSearch={setSearch} searchId="mobile-search" />
       </div>
       <div className="navbar-end md:pr-4">
         <ul className="p-0 font-medium rounded-lg space-x-8 rtl:space-x-reverse flex-row mt-0 border-0 hidden md:flex">
@@ -72,7 +72,7 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
             <NavItem id="accessibility" text={translations.accessibility} />
           </li>
           <li>
-            <Search setSearch={setSearch} />
+            <Search setSearch={setSearch} searchId="main-search" />
           </li>
         </ul>
         <div className="dropdown dropdown-end block md:hidden">

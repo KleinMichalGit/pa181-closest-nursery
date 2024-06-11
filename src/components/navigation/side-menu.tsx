@@ -13,6 +13,7 @@ const SideMenu = ({
     <aside
       className="p-2.5 w-full md:w-96 overflow-y-scroll scrol"
       style={{ height: "calc(100dvh - 76px)", scrollbarWidth: "thin" }}
+      aria-label={translations.closestSchool}
     >
       {closestSchool?.properties ? (
         <>

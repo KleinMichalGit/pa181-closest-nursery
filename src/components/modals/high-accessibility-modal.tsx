@@ -8,9 +8,13 @@ import { useLanguageContext } from "@/contexts/language-context";
 const HighAccessibilityModal = () => {
   const { translations } = useLanguageContext();
   return (
-    <dialog id="accessibility" className="modal modal-bottom sm:modal-middle">
+    <dialog
+      id="accessibility"
+      className="modal modal-bottom sm:modal-middle"
+      aria-label={translations.accessibility}
+    >
       <div className="modal-box">
-        <h3 className="font-bold select-none">{translations.accessibility}</h3>
+        <h2 className="font-bold select-none">{translations.accessibility}</h2>
 
         <div className="py-4">
           <LanguageSwitcher />
@@ -22,12 +26,14 @@ const HighAccessibilityModal = () => {
 
         <div className="modal-action">
           <form method="dialog">
-            <button className="btn btn-secondary">{translations.close}</button>
+            <button className="btn btn-secondary" type="submit">
+              {translations.close}
+            </button>
           </form>
         </div>
       </div>
       <form method="dialog" className="modal-backdrop">
-        <button>{translations.close}</button>
+        <button type="submit">{translations.close}</button>
       </form>
     </dialog>
   );
