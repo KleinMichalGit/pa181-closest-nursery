@@ -10,6 +10,7 @@ import {
 import { useEffect, useState, useRef, useCallback } from "react";
 import L, { LatLng } from "leaflet";
 import { ClosestSchoolType, MapType } from "@/types/map-type";
+import MapPopup from "@/components/map/map-popup";
 
 const Map = ({
   schools,
@@ -107,6 +108,9 @@ const Map = ({
               longitude,
               latitude,
               email,
+              director,
+              website,
+              school_capacity,
             },
           }) => (
             <Marker
@@ -119,9 +123,15 @@ const Map = ({
                 }
               }}
             >
-              <Popup>
-                {title} <br /> {address} <br /> {telephone} <br /> {email}
-              </Popup>
+              <MapPopup
+                title={title}
+                address={address}
+                telephone={telephone}
+                email={email}
+                director={director}
+                website={website}
+                school_capacity={school_capacity}
+              />
             </Marker>
           ),
         )}

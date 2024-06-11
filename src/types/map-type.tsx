@@ -8,6 +8,9 @@ export type MapType = {
       longitude: number;
       latitude: number;
       email: string;
+      director: string;
+      website: string;
+      school_capacity: number;
     };
   }>;
 };

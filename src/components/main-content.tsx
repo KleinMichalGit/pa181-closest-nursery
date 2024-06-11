@@ -30,6 +30,12 @@ const MainContent = ({ schools }: MapType) => {
               .includes(filter.toLowerCase()) ||
             school.properties.email
               .toLowerCase()
+              .includes(filter.toLowerCase()) ||
+            school.properties.director
+              .toLowerCase()
+              .includes(filter.toLowerCase()) ||
+            school.properties.website
+              .toLowerCase()
               .includes(filter.toLowerCase()),
         );
 
