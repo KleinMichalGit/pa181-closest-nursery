@@ -24,6 +24,7 @@ const Search = ({ setSearch }: StatisticsModalSearchBarProps) => {
             className="p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 max-w-60"
             placeholder={translations.search}
             {...searchForm.register("search")}
+            alt={translations.search}
           />
         </div>
       </form>

@@ -36,13 +36,14 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
         >
           <Image
             src="/favicon.ico"
-            alt="Flowbite Logo"
+            alt={translations.logo}
             width={30}
             height={30}
             className="visible"
+            id="logo"
           />
           <span className="self-center font-semibold whitespace-nowrap hidden md:block">
-            {translations.logo}
+            <label htmlFor="logo">{translations.logo}</label>
           </span>
         </Link>
       </div>

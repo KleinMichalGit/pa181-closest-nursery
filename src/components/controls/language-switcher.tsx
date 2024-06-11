@@ -31,6 +31,7 @@ export const LanguageSwitcher = () => {
                   name="language-radio"
                   onChange={() => setLanguage(languageValue)}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                  alt={languageValue}
                 />
                 <label
                   htmlFor={"default-radio-" + languageValue}
