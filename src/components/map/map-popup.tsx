@@ -20,6 +20,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
   website,
   school_capacity,
 }) => {
+  //TODO add localisation
   return (
     <Popup>
       <div>

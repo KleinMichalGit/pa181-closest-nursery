@@ -6,10 +6,12 @@ import { useLanguageContext } from "@/contexts/language-context";
 import Search from "@/components/navigation/search";
 import { useState } from "react";
 import { HiPaintBrush } from "react-icons/hi2";
+
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useThemeContext();
   const { translations } = useLanguageContext();
   const [filter, setFilter] = useState("");
+
   return (
     <details className="collapse bg-base-200">
       <summary className="collapse-title font-medium">

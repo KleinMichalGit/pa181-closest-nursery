@@ -3,7 +3,6 @@ import Image from "next/image";
 import NavItem from "@/components/navigation/nav-item";
 import { useEffect, useState } from "react";
 import Search from "@/components/navigation/search";
-import { FaPrint } from "react-icons/fa";
 import { ClosestSchoolType } from "@/types/map-type";
 import { useLanguageContext } from "@/contexts/language-context";
 import Export from "@/components/controls/export";

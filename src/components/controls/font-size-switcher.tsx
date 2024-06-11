@@ -4,6 +4,7 @@ import { useFontSizeContext } from "@/contexts/font-size-context";
 import { fontSizes } from "@/types/font-sizes";
 import { useLanguageContext } from "@/contexts/language-context";
 import { HiArrowsUpDown } from "react-icons/hi2";
+
 export const FontSizeSwitcher = () => {
   const { fontSize, setFontSize } = useFontSizeContext();
   const currentFontSize = fontSize || fontSizes[0]; // Use a default value if fontSize is undefined
