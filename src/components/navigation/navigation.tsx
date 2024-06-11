@@ -61,7 +61,7 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
                 />
               </li>
               <li>
-                <Print isInMobileMenu={false} />
+                <Print closestSchools={closestSchools} isInMobileMenu={false} />
               </li>
             </>
           )}
@@ -111,7 +111,10 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
                     />
                   </li>
                   <li>
-                    <Print isInMobileMenu={true} />
+                    <Print
+                      closestSchools={closestSchools}
+                      isInMobileMenu={true}
+                    />
                   </li>
                 </>
               )}

@@ -9,6 +9,7 @@ interface ExportProps {
 }
 
 const Export = ({ closestSchools, isInMobileMenu }: ExportProps) => {
+  // TODO add localisation here into labels
   const headers = [
     { label: "k-th closest", key: "kthclosest" },
     { label: "title", key: "title" },
