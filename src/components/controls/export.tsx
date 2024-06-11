@@ -8,7 +8,7 @@ interface ExportProps {
   isInMobileMenu: boolean;
 }
 
-const Export = ({ closestSchools, isInMobileMenu }: ExportProps) => {
+const Export: React.FC<ExportProps> = ({ closestSchools, isInMobileMenu }) => {
   // TODO add localisation here into labels
   const headers = [
     { label: "k-th closest", key: "kthclosest" },
@@ -22,16 +22,22 @@ const Export = ({ closestSchools, isInMobileMenu }: ExportProps) => {
     { label: "distance (meters)", key: "distance" },
   ];
 
+  const escapeCsvField = (field: string) => {
+    return field.replaceAll(",", ";");
+  };
+
   const csvData = closestSchools.map((school, index) => ({
     kthclosest: index,
-    title: school.properties?.title || "N/A",
-    address: school.properties?.address || "N/A",
-    telephone: school.properties?.telephone || "N/A",
-    email: school.properties?.email || "N/A",
-    director: school.properties?.director || "N/A",
-    website: school.properties?.website || "N/A",
-    school_capacity: school.properties?.school_capacity || "N/A",
-    distance: Math.round(school.properties?.distance ?? 0),
+    title: escapeCsvField(school.properties?.title || "N/A"),
+    address: escapeCsvField(school.properties?.address || "N/A"),
+    telephone: escapeCsvField(school.properties?.telephone || "N/A"),
+    email: escapeCsvField(school.properties?.email || "N/A"),
+    director: escapeCsvField(school.properties?.director || "N/A"),
+    website: escapeCsvField(school.properties?.website || "N/A"),
+    school_capacity: escapeCsvField(
+      school.properties?.school_capacity?.toString() || "N/A",
+    ),
+    distance: Math.round(school.properties?.distance ?? 0).toString(),
   }));
 
   return (
