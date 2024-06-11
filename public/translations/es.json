@@ -1,0 +1,22 @@
+{
+  "logo": "PA181 Guardería más cercana",
+  "about": "Acerca de",
+  "accessibility": "Accesibilidad",
+  "search": "Buscar...",
+  "beforeSelectingCurrentPosition": "Para mostrar la guardería más cercana, haga clic en el mapa para establecer su ubicación.",
+  "language": "Idioma",
+  "colorTheme": "Tema de color",
+  "fontSize": "Tamaño de fuente",
+  "close": "Cerrar",
+  "aboutContent": "Esta es una aplicación web que muestra la guardería más cercana a su ubicación. Los datos son proporcionados por el Ministerio de Educación, Cultura, Deportes, Ciencia y Tecnología de Japón.",
+  "small": "Pequeño",
+  "medium": "Mediano",
+  "large": "Grande",
+  "extraLarge": "Extra grande",
+  "title": "Título",
+  "address": "Dirección",
+  "telephone": "Teléfono",
+  "email": "Correo electrónico",
+  "distance": "Distancia",
+  "meters": "Metros"
+}

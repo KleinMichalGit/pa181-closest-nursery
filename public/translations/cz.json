@@ -12,5 +12,11 @@
   "small": "Malé",
   "medium": "Střední",
   "large": "Velké",
-  "extraLarge": "Extra Velké"
+  "extraLarge": "Extra Velké",
+  "title": "Název",
+  "address": "Adresa",
+  "telephone": "Telefon",
+  "email": "E-mail",
+  "distance": "Vzdálenost",
+  "meters": "Metry"
 }

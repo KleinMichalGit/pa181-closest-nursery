@@ -1,0 +1,22 @@
+{
+  "logo": "PA181 Crèche la plus proche",
+  "about": "À propos",
+  "accessibility": "Accessibilité",
+  "search": "Rechercher...",
+  "beforeSelectingCurrentPosition": "Pour afficher la crèche la plus proche, veuillez cliquer sur la carte pour définir votre position.",
+  "language": "Langue",
+  "colorTheme": "Thème de couleur",
+  "fontSize": "Taille de la police",
+  "close": "Fermer",
+  "aboutContent": "Il s'agit d'une application web qui montre la crèche la plus proche de votre position. Les données sont fournies par le Ministère de l'Éducation, de la Culture, des Sports, de la Science et de la Technologie du Japon.",
+  "small": "Petit",
+  "medium": "Moyen",
+  "large": "Grand",
+  "extraLarge": "Très grand",
+  "title": "Titre",
+  "address": "Adresse",
+  "telephone": "Téléphone",
+  "email": "Email",
+  "distance": "Distance",
+  "meters": "Mètres"
+}

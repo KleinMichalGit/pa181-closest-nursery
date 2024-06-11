@@ -1,0 +1,24 @@
+
+{
+  "logo": "PA181 Nächster Kindergarten",
+  "about": "Über",
+  "accessibility": "Zugänglichkeit",
+  "search": "Suchen...",
+  "beforeSelectingCurrentPosition": "Um den nächsten Kindergarten anzuzeigen, klicken Sie bitte auf die Karte, um Ihren Standort festzulegen.",
+  "language": "Sprache",
+  "colorTheme": "Farbthema",
+  "fontSize": "Schriftgröße",
+  "close": "Schließen",
+  "aboutContent": "Dies ist eine Webanwendung, die den nächsten Kindergarten zu Ihrem Standort anzeigt. Die Daten werden vom Ministerium für Bildung, Kultur, Sport, Wissenschaft und Technologie von Japan bereitgestellt.",
+  "small": "Klein",
+  "medium": "Mittel",
+  "large": "Groß",
+  "extraLarge": "Extra Groß",
+  "title": "Titel",
+  "address": "Adresse",
+  "telephone": "Telefon",
+  "email": "E-Mail",
+  "distance": "Entfernung",
+  "meters": "Meter"
+}
+

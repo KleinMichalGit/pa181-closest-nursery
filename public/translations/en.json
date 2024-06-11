@@ -12,5 +12,11 @@
   "small": "Small",
   "medium": "Medium",
   "large": "Large",
-  "extraLarge": "Extra Large"
+  "extraLarge": "Extra Large",
+  "title": "Title",
+  "address": "Address",
+  "telephone": "Telephone",
+  "email": "Email",
+  "distance": "Distance",
+  "meters": "meters"
 }
