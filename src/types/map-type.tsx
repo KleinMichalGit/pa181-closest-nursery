@@ -21,6 +21,10 @@ export type ClosestSchoolType = {
     address: string;
     telephone: string;
     email: string;
+    director: string;
+    website: string;
+    school_capacity: number;
+
     distance: number;
   };
 };
