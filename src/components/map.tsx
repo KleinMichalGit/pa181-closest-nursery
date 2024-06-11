@@ -47,6 +47,8 @@ const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
       return { school, distance };
     });
 
+    if (distances.length === 0) return;
+
     distances.sort((a, b) => a.distance - b.distance);
 
     setClosestSchools(
@@ -90,7 +92,7 @@ const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
       {schools.map(({ properties }) => (
         <Marker
           position={[properties.latitude, properties.longitude]}
-          key={Math.random()}
+          key={properties.objectid}
           icon={defaultIcon}
           ref={(marker) => {
             if (marker) {
