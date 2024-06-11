@@ -13,7 +13,7 @@ const themeLocalStorageKey = "color-theme";
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const { localStorageValue: theme, storeToLocalStorage: setTheme } =
-    useLocalStorage<Theme>(themeLocalStorageKey, "black");
+    useLocalStorage<Theme>(themeLocalStorageKey, "dracula");
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
