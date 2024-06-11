@@ -1,28 +1,22 @@
+import { SchoolProperties } from "@/types/map-type";
+
+export type Geometry = {
+  type: string;
+  coordinates: [number, number];
+};
+
 export type Nursery = {
-  features: {
+  features: Array<{
     type: string;
     id: number;
-    geometry: {
-      type: string;
-      coordinates: [number, number];
-    };
-    properties: {
-      objectid: number;
+    geometry: Geometry;
+    properties: SchoolProperties & {
       school_id: number;
-      title: string;
-      director: string;
-      website: string;
-      email: string;
-      telephone: string;
-      address: string;
-      longitude: number;
-      latitude: number;
-      school_capacity: number;
       applications: number;
       applications_locals: number;
       results_accepted: number;
       results_nonaccepted: number;
       results_other: number;
     };
-  }[];
+  }>;
 };
