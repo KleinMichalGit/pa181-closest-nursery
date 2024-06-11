@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -7,146 +8,137 @@ import {
   Popup,
   useMapEvents,
 } from "react-leaflet";
-import { useEffect, useState, useRef, useCallback } from "react";
 import L, { LatLng } from "leaflet";
-import { ClosestSchoolType, MapType } from "@/types/map-type";
+import { ClosestSchoolType, MapType, SchoolProperties } from "@/types/map-type";
 import MapPopup from "@/components/map/map-popup";
 
-const Map = ({
-  schools,
-  setClosestSchools,
-}: MapType & {
+interface MapProps extends MapType {
   setClosestSchools: (schools: ClosestSchoolType[] | null) => void;
-}) => {
+}
+
+const defaultIcon = new L.Icon({
+  iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12.5, 41],
+  popupAnchor: [0, -41],
+});
+
+const currentPositionIcon = new L.Icon({
+  iconUrl: "/currentPosition.ico",
+  iconSize: [48, 48],
+  iconAnchor: [25, 48],
+  popupAnchor: [0, -48],
+});
+
+const closestSchoolIsAmongFilteredSchools = (
+  closestSchoolID: number,
+  filteredSchools: SchoolProperties[],
+) => {
+  return filteredSchools.some(
+    (filteredSchool) => filteredSchool.objectid === closestSchoolID,
+  );
+};
+
+const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
   const [currentPosition, setCurrentPosition] = useState<LatLng[]>([]);
   const markersRef = useRef<{ [key: string]: L.Marker }>({});
 
-  const defaultIcon = new L.Icon({
-    iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
-    shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
-    iconSize: [25, 41],
-    iconAnchor: [12.5, 41],
-    popupAnchor: [0, -41],
-  });
-
-  const currentPositionIcon = new L.Icon({
-    iconUrl: "/currentPosition.ico",
-    iconSize: [48, 48],
-    iconAnchor: [25, 48],
-    popupAnchor: [0, -48],
-  });
-
   const calculateClosestSchools = useCallback(() => {
-    if (currentPosition.length > 0) {
-      const distances = schools.map((school) => {
-        const { latitude, longitude } = school.properties;
-        const distance = currentPosition[0]?.distanceTo(
-          new LatLng(latitude, longitude),
-        );
+    if (currentPosition.length === 0) {
+      setClosestSchools(null);
+      return;
+    }
 
-        return { school, distance };
-      });
+    const distances = schools.map((school) => {
+      const { latitude, longitude } = school.properties;
+      const distance = currentPosition[0]?.distanceTo(
+        new LatLng(latitude, longitude),
+      );
 
-      // Sort the distances array in ascending order
-      distances.sort((a, b) => a.distance - b.distance);
+      return { school, distance };
+    });
 
+    if (distances.length === 0) {
+      setClosestSchools(null);
+      return;
+    }
+
+    distances.sort((a, b) => a.distance - b.distance);
+
+    if (
+      closestSchoolIsAmongFilteredSchools(
+        distances[0].school.properties.objectid,
+        schools.map(({ properties }) => properties),
+      )
+    ) {
       setClosestSchools(
-        distances.map((distance) => ({
+        distances.map(({ school, distance }) => ({
           properties: {
-            title: distance.school.properties.title,
-            address: distance.school.properties.address,
-            telephone: distance.school.properties.telephone,
-            email: distance.school.properties.email,
-            distance: distance.distance,
+            ...school.properties,
+            distance,
           },
         })),
       );
-
-      // Open the popup for the closest marker
-      const closestSchool = distances[0].school;
-      const closestMarker =
-        markersRef.current[closestSchool.properties.objectid];
-      if (closestMarker) {
-        closestMarker.openPopup();
-      }
+    } else {
+      setClosestSchools(null);
+      return;
     }
-  }, [currentPosition]);
+
+    const closestSchool = distances[0].school;
+    const closestMarker = markersRef.current[closestSchool.properties.objectid];
+    closestMarker?.openPopup();
+  }, [currentPosition, schools]);
 
   useEffect(() => {
     calculateClosestSchools();
-  }, [currentPosition]);
+  }, [currentPosition, schools]);
 
-  const MapClickHandler = () => {
+  const MapClickHandler: React.FC = () => {
     useMapEvents({
-      click: (e) => {
-        const { lat, lng } = e.latlng;
-        setCurrentPosition([new LatLng(lat, lng)]);
+      click: ({ latlng }) => {
+        setCurrentPosition([new LatLng(latlng.lat, latlng.lng)]);
       },
     });
     return null;
   };
 
   return (
-    <>
-      <MapContainer
-        center={[49.195061, 16.606836]}
-        zoom={13}
-        className="w-full"
-        style={{ height: "calc(100dvh - 76px)" }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://github.com/KleinMichalGit/pa181-closest-nursery">PA181</a> contributors'
-        />
-        {schools.map(
-          ({
-            properties: {
-              objectid,
-              title,
-              address,
-              telephone,
-              longitude,
-              latitude,
-              email,
-              director,
-              website,
-              school_capacity,
-            },
-          }) => (
-            <Marker
-              position={[latitude, longitude]}
-              key={Math.random()}
-              icon={defaultIcon}
-              ref={(marker) => {
-                if (marker) {
-                  markersRef.current[objectid] = marker;
-                }
-              }}
-            >
-              <MapPopup
-                title={title}
-                address={address}
-                telephone={telephone}
-                email={email}
-                director={director}
-                website={website}
-                school_capacity={school_capacity}
-              />
-            </Marker>
-          ),
-        )}
-        <MapClickHandler />
-        {currentPosition.map((position) => (
-          <Marker
-            position={position}
-            key={position.toString()}
-            icon={currentPositionIcon}
-          >
-            <Popup>Your position</Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </>
+    <MapContainer
+      center={[49.195061, 16.606836]}
+      zoom={13}
+      className="w-full"
+      style={{ height: "calc(100dvh - 76px)" }}
+    >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://github.com/KleinMichalGit/pa181-closest-nursery">PA181</a> contributors'
+      />
+      {schools.map(({ properties }) => (
+        <Marker
+          position={[properties.latitude, properties.longitude]}
+          key={properties.objectid}
+          icon={defaultIcon}
+          ref={(marker) => {
+            if (marker) {
+              markersRef.current[properties.objectid] = marker;
+            }
+          }}
+        >
+          <MapPopup {...properties} />
+        </Marker>
+      ))}
+      <MapClickHandler />
+      {currentPosition.map((position) => (
+        <Marker
+          position={position}
+          key={position.toString()}
+          icon={currentPositionIcon}
+        >
+          <Popup>Your position</Popup>
+        </Marker>
+      ))}
+    </MapContainer>
   );
 };
 

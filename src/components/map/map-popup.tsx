@@ -20,6 +20,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
   website,
   school_capacity,
 }) => {
+  //TODO add localisation
   return (
     <Popup>
       <div>
@@ -35,7 +36,7 @@ const MapPopup: React.FC<MapPopupProps> = ({
         <br />
 
         <strong>email: </strong>
-        {email}
+        <a href={`mailto:${email}`}>{email}</a>
         <br />
 
         <strong>director: </strong>
@@ -43,7 +44,9 @@ const MapPopup: React.FC<MapPopupProps> = ({
         <br />
 
         <strong>website: </strong>
-        {website}
+        <a href={website} target="_blank">
+          {website}
+        </a>
         <br />
 
         <strong>school capacity: </strong>

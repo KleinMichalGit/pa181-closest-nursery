@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import NavItem from "@/components/navigation/nav-item";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Search from "@/components/navigation/search";
-import { CSVLink } from "react-csv";
-import { FaFileCsv, FaPrint } from "react-icons/fa";
 import { ClosestSchoolType } from "@/types/map-type";
 import { useLanguageContext } from "@/contexts/language-context";
+import Export from "@/components/controls/export";
+import Print from "@/components/controls/print";
 
 type NavigationType = {
   setFilter: (search: string) => void;
@@ -16,26 +16,6 @@ type NavigationType = {
 const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
   const [search, setSearch] = useState("");
   const { translations } = useLanguageContext();
-  const printRef = useRef<HTMLDivElement>(null);
-
-  const headers = [
-    { label: "k-th closest", key: "kthclosest" },
-    { label: "title", key: "title" },
-    { label: "address", key: "address" },
-    { label: "telephone", key: "telephone" },
-    { label: "email", key: "email" },
-    { label: "distance (meters)", key: "distance" },
-  ];
-
-  const csvData =
-    closestSchools?.map((school, index) => ({
-      kthclosest: index,
-      title: school?.properties?.title,
-      address: school?.properties?.address,
-      telephone: school?.properties?.telephone,
-      email: school?.properties?.email,
-      distance: Math.round(school?.properties?.distance ?? 0),
-    })) || [];
 
   useEffect(() => {
     setFilter(search);
@@ -47,17 +27,6 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
     setIsOpen(!isOpen);
   };
 
-  const handlePrint = () => {
-    if (printRef.current) {
-      const printContents = printRef.current.innerHTML;
-      const originalContents = document.body.innerHTML;
-      document.body.innerHTML = printContents;
-      window.print();
-      document.body.innerHTML = originalContents;
-      window.location.reload();
-    }
-  };
-
   return (
     <nav className="navbar bg-base-100">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 navbar-start">
@@ -67,43 +36,32 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
         >
           <Image
             src="/favicon.ico"
-            alt="Flowbite Logo"
+            alt="Logo"
             width={30}
             height={30}
             className="visible"
+            id="logo"
           />
           <span className="self-center font-semibold whitespace-nowrap hidden md:block">
-            {translations.logo}
+            <h1>{translations.logo}</h1>
           </span>
         </Link>
       </div>
       <div className="navbar-center block md:hidden">
-        <Search setSearch={setSearch} />
+        <Search setSearch={setSearch} searchId="mobile-search" />
       </div>
       <div className="navbar-end md:pr-4">
         <ul className="p-0 font-medium rounded-lg space-x-8 rtl:space-x-reverse flex-row mt-0 border-0 hidden md:flex">
           {closestSchools !== null && (
             <>
               <li>
-                <CSVLink
-                  data={csvData}
-                  headers={headers}
-                  filename={"closest_nursery.csv"}
-                  className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-                  style={{ transform: "translateY(4px)" }}
-                  target="_blank"
-                >
-                  <FaFileCsv />
-                </CSVLink>
+                <Export
+                  closestSchools={closestSchools}
+                  isInMobileMenu={false}
+                />
               </li>
               <li>
-                <button
-                  onClick={handlePrint}
-                  className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-                  style={{ transform: "translateY(4px)" }}
-                >
-                  <FaPrint />
-                </button>
+                <Print closestSchools={closestSchools} isInMobileMenu={false} />
               </li>
             </>
           )}
@@ -114,7 +72,7 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
             <NavItem id="accessibility" text={translations.accessibility} />
           </li>
           <li>
-            <Search setSearch={setSearch} />
+            <Search setSearch={setSearch} searchId="main-search" />
           </li>
         </ul>
         <div className="dropdown dropdown-end block md:hidden">
@@ -147,27 +105,16 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
               {closestSchools !== null && (
                 <>
                   <li>
-                    <CSVLink
-                      data={csvData}
-                      headers={headers}
-                      filename={"closest_nursery.csv"}
-                      className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-                      target="_blank"
-                      onClick={() => toggleDropdown()}
-                    >
-                      Export <FaFileCsv />
-                    </CSVLink>
+                    <Export
+                      closestSchools={closestSchools}
+                      isInMobileMenu={true}
+                    />
                   </li>
                   <li>
-                    <button
-                      onClick={() => {
-                        toggleDropdown();
-                        handlePrint();
-                      }}
-                      className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-                    >
-                      Print <FaPrint />
-                    </button>
+                    <Print
+                      closestSchools={closestSchools}
+                      isInMobileMenu={true}
+                    />
                   </li>
                 </>
               )}
@@ -188,34 +135,6 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
             </ul>
           )}
         </div>
-      </div>
-
-      {/* Hidden print area */}
-      <div ref={printRef} style={{ display: "none" }}>
-        <table>
-          <thead>
-            <tr>
-              <th>k-th closest</th>
-              <th>title</th>
-              <th>address</th>
-              <th>telephone</th>
-              <th>email</th>
-              <th>distance (meters)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {csvData.map((row, index) => (
-              <tr key={index}>
-                <td>{row.kthclosest}</td>
-                <td>{row.title}</td>
-                <td>{row.address}</td>
-                <td>{row.telephone}</td>
-                <td>{row.email}</td>
-                <td>{row.distance}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </div>
     </nav>
   );
