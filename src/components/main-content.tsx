@@ -44,8 +44,8 @@ const MainContent: React.FC<MapType> = ({ schools }) => {
         closestSchools={closestSchools}
       />
       <main className="block md:flex justify-between mx-auto px-4 z-0 relative">
-        <SideMenu closestSchools={closestSchools} />
         <Map schools={filteredSchools} setClosestSchools={setClosestSchools} />
+        <SideMenu closestSchools={closestSchools} />
       </main>
     </>
   );

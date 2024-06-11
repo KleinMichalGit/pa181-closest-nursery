@@ -10,7 +10,10 @@ const SideMenu = ({
   const closestSchool = closestSchools?.[0];
 
   return (
-    <aside className="p-2.5 h-full w-full md:w-96">
+    <aside
+      className="p-2.5 w-full md:w-96 overflow-y-scroll scrol"
+      style={{ height: "calc(100dvh - 76px)", scrollbarWidth: "thin" }}
+    >
       {closestSchool?.properties ? (
         <>
           <ul className="space-y-1 list-inside">
@@ -28,6 +31,14 @@ const SideMenu = ({
               </label>
               <div className="relative mb-6">
                 {closestSchool.properties.address}
+              </div>
+            </li>
+            <li>
+              <label htmlFor="distance" className="block mb-2 font-medium">
+                Distance
+              </label>
+              <div className="relative mb-6">
+                {Math.round(closestSchool.properties.distance)} meters
               </div>
             </li>
             <li>
@@ -51,12 +62,42 @@ const SideMenu = ({
               </div>
             </li>
             <li>
-              <label htmlFor="distance" className="block mb-2 font-medium">
-                Distance
+              <label
+                htmlFor="input-director"
+                className="block mb-2 font-medium"
+              >
+                Director
               </label>
-              <p className="text-warning" id="distance">
-                {Math.round(closestSchool.properties.distance)} meters
-              </p>
+              <div className="relative mb-6">
+                {closestSchool.properties.director}
+              </div>
+            </li>
+            <li>
+              <label htmlFor="input-website" className="block mb-2 font-medium">
+                Website
+              </label>
+              <div className="relative mb-6">
+                <a
+                  href={closestSchool.properties.website}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {closestSchool.properties.website}
+                </a>
+              </div>
+            </li>
+            <li>
+              <label
+                htmlFor="input-capacity"
+                className="block mb-2 font-medium"
+              >
+                School Capacity
+              </label>
+              <div className="relative mb-6">
+                {closestSchool.properties.school_capacity === 0
+                  ? "neuvedeno"
+                  : closestSchool.properties.school_capacity}
+              </div>
             </li>
           </ul>
         </>
