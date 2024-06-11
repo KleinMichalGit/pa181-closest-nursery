@@ -1,3 +1,4 @@
+import MainContent from "@/components/main-content";
 import { Nursery } from "@/types/nursery";
 
 async function fetchData(): Promise<Nursery> {
@@ -10,23 +11,5 @@ async function fetchData(): Promise<Nursery> {
 
 export default async function Home() {
   const data = await fetchData();
-
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>PA181</h1>
-      {data.features.map(
-        ({
-          properties: { title, address, telephone, longitude, latitude, email },
-        }) => (
-          <div key={title} className="p-4 m-4 border border-gray-300">
-            <h2>{address}</h2>
-            <p>{telephone}</p>
-            <p>{longitude}</p>
-            <p>{latitude}</p>
-            <p>{email}</p>
-          </div>
-        ),
-      )}
-    </main>
-  );
+  return <MainContent schools={data.features} />;
 }

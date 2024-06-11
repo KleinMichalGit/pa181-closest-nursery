@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import AboutModal from "@/components/modals/about-modal";
+import HighAccessibilityModal from "@/components/modals/high-accessibility-modal";
+import { Providers } from "@/app/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,8 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="hide-scrollbar">
+      <body className={inter.className}>
+        <Providers>
+          {children}
+          <AboutModal />
+          <HighAccessibilityModal />
+        </Providers>
+      </body>
     </html>
   );
 }
