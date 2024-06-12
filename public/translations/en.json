@@ -12,5 +12,16 @@
   "small": "Small",
   "medium": "Medium",
   "large": "Large",
-  "extraLarge": "Extra Large"
+  "extraLarge": "Extra Large",
+  "closestSchool": "Closest School",
+  "title": "Title",
+  "address": "Address",
+  "distance": "Distance",
+  "meters": "meters",
+  "telephone": "Telephone",
+  "email": "Email",
+  "director": "Director",
+  "website": "Website",
+  "schoolCapacity": "School Capacity",
+  "notSpecified": "Not Specified"
 }

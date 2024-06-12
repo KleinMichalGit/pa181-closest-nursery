@@ -2,8 +2,8 @@ import { ClosestSchoolType } from "@/types/map-type";
 import { useLanguageContext } from "@/contexts/language-context";
 
 const SideMenu = ({
-  closestSchools,
-}: {
+                    closestSchools,
+                  }: {
   closestSchools: ClosestSchoolType[] | null;
 }) => {
   const { translations } = useLanguageContext();
@@ -20,7 +20,7 @@ const SideMenu = ({
           <ul className="space-y-1 list-inside">
             <li>
               <label htmlFor="message" className="block mb-2 font-medium">
-                Title
+                {translations.title}
               </label>
               <div className="relative mb-6">
                 {closestSchool.properties.title}
@@ -28,7 +28,7 @@ const SideMenu = ({
             </li>
             <li>
               <label htmlFor="input-address" className="block mb-2 font-medium">
-                Address
+                {translations.address}
               </label>
               <div className="relative mb-6">
                 {closestSchool.properties.address}
@@ -36,15 +36,15 @@ const SideMenu = ({
             </li>
             <li>
               <label htmlFor="distance" className="block mb-2 font-medium">
-                Distance
+                {translations.distance}
               </label>
               <div className="relative mb-6">
-                {Math.round(closestSchool.properties.distance)} meters
+                {Math.round(closestSchool.properties.distance)} {translations.meters}
               </div>
             </li>
             <li>
               <label htmlFor="input-phone" className="block mb-2 font-medium">
-                Telephone
+                {translations.telephone}
               </label>
               <div className="relative mb-6">
                 <a href={`tel:${closestSchool.properties.telephone}`}>
@@ -54,7 +54,7 @@ const SideMenu = ({
             </li>
             <li>
               <label htmlFor="input-email" className="block mb-2 font-medium">
-                Email
+                {translations.email}
               </label>
               <div className="relative mb-6">
                 <a href={`mailto:${closestSchool.properties.email}`}>
@@ -67,7 +67,7 @@ const SideMenu = ({
                 htmlFor="input-director"
                 className="block mb-2 font-medium"
               >
-                Director
+                {translations.director}
               </label>
               <div className="relative mb-6">
                 {closestSchool.properties.director}
@@ -75,7 +75,7 @@ const SideMenu = ({
             </li>
             <li>
               <label htmlFor="input-website" className="block mb-2 font-medium">
-                Website
+                {translations.website}
               </label>
               <div className="relative mb-6">
                 <a
@@ -92,11 +92,11 @@ const SideMenu = ({
                 htmlFor="input-capacity"
                 className="block mb-2 font-medium"
               >
-                School Capacity
+                {translations.schoolCapacity}
               </label>
               <div className="relative mb-6">
                 {closestSchool.properties.school_capacity === 0
-                  ? "neuvedeno"
+                  ? translations.notSpecified
                   : closestSchool.properties.school_capacity}
               </div>
             </li>
