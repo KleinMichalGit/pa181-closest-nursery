@@ -7,10 +7,12 @@ import {
   Marker,
   Popup,
   useMapEvents,
+  useMap,
 } from "react-leaflet";
 import L, { LatLng } from "leaflet";
 import { ClosestSchoolType, MapType, SchoolProperties } from "@/types/map-type";
 import MapPopup from "@/components/map/map-popup";
+import axios from "axios";
 
 interface MapProps extends MapType {
   setClosestSchools: (schools: ClosestSchoolType[] | null) => void;
@@ -40,13 +42,56 @@ const closestSchoolIsAmongFilteredSchools = (
   );
 };
 
-const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
+interface RoutingMachineProps {
+  start: LatLng;
+  end: LatLng;
+}
+
+const RoutingMachine = ({ start, end }: RoutingMachineProps) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!map) return;
+
+    const fetchRoute = async () => {
+      const apiKey = "5b3ce3597851110001cf62483147e8f114534b5fbc7f76079c0ccd63";
+      const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
+
+      try {
+        const response = await axios.get(url);
+        const coordinates = response.data.features[0].geometry.coordinates;
+        const latlngs = coordinates.map(
+          (coord: [number, number]) =>
+            [coord[1], coord[0]] as L.LatLngExpression,
+        );
+
+        const route = L.polyline(latlngs, { color: "blue" }).addTo(map);
+        map.fitBounds(route.getBounds());
+
+        return () => {
+          map.removeLayer(route);
+        };
+      } catch (error) {
+        console.error("Error fetching route", error);
+      }
+    };
+
+    fetchRoute();
+  }, [map, start, end]);
+
+  return null;
+};
+
+const Map = ({ schools, setClosestSchools }: MapProps) => {
   const [currentPosition, setCurrentPosition] = useState<LatLng[]>([]);
   const markersRef = useRef<{ [key: string]: L.Marker }>({});
+  const [currentClosestSchoolPosition, setCurrentClosestSchoolPosition] =
+    useState<LatLng | null>(null);
 
   const calculateClosestSchools = useCallback(() => {
     if (currentPosition.length === 0) {
       setClosestSchools(null);
+      setCurrentClosestSchoolPosition(null);
       return;
     }
 
@@ -61,6 +106,7 @@ const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
 
     if (distances.length === 0) {
       setClosestSchools(null);
+      setCurrentClosestSchoolPosition(null);
       return;
     }
 
@@ -80,8 +126,15 @@ const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
           },
         })),
       );
+      setCurrentClosestSchoolPosition(
+        new LatLng(
+          distances[0].school.properties.latitude,
+          distances[0].school.properties.longitude,
+        ),
+      );
     } else {
       setClosestSchools(null);
+      setCurrentClosestSchoolPosition(null);
       return;
     }
 
@@ -129,6 +182,15 @@ const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
         </Marker>
       ))}
       <MapClickHandler />
+      {
+        // Render the route only when the current position and the closest school are set
+        currentClosestSchoolPosition && currentPosition[0] && (
+          <RoutingMachine
+            start={currentPosition[0]}
+            end={currentClosestSchoolPosition}
+          />
+        )
+      }
       {currentPosition.map((position) => (
         <Marker
           position={position}
