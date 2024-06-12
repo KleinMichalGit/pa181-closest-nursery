@@ -1,5 +1,6 @@
 import React from "react";
 import { Popup } from "react-leaflet";
+import { useLanguageContext } from "@/contexts/language-context";
 
 interface MapPopupProps {
   title: string;
@@ -12,45 +13,46 @@ interface MapPopupProps {
 }
 
 const MapPopup: React.FC<MapPopupProps> = ({
-  title,
-  address,
-  telephone,
-  email,
-  director,
-  website,
-  school_capacity,
-}) => {
-  //TODO add localisation
+                                             title,
+                                             address,
+                                             telephone,
+                                             email,
+                                             director,
+                                             website,
+                                             school_capacity,
+                                           }) => {
+  const { translations } = useLanguageContext();
+
   return (
     <Popup>
       <div>
         <strong>{title}</strong>
         <br />
 
-        <strong>address: </strong>
+        <strong>{translations.address}: </strong>
         {address}
         <br />
 
-        <strong>telephone: </strong>
+        <strong>{translations.telephone}: </strong>
         {telephone}
         <br />
 
-        <strong>email: </strong>
+        <strong>{translations.email}: </strong>
         <a href={`mailto:${email}`}>{email}</a>
         <br />
 
-        <strong>director: </strong>
+        <strong>{translations.director}: </strong>
         {director}
         <br />
 
-        <strong>website: </strong>
-        <a href={website} target="_blank">
+        <strong>{translations.website}: </strong>
+        <a href={website} target="_blank" rel="noreferrer">
           {website}
         </a>
         <br />
 
-        <strong>school capacity: </strong>
-        {school_capacity === 0 ? "neuvedeno" : school_capacity}
+        <strong>{translations.schoolCapacity}: </strong>
+        {school_capacity === 0 ? translations.notSpecified : school_capacity}
         <br />
       </div>
     </Popup>
