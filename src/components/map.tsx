@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import {
   MapContainer,
@@ -12,6 +10,7 @@ import {
 import L, { LatLng } from "leaflet";
 import { ClosestSchoolType, MapType, SchoolProperties } from "@/types/map-type";
 import MapPopup from "@/components/map/map-popup";
+import RoutingMachine from "@/components/map/routing-machine";
 import axios from "axios";
 
 interface MapProps extends MapType {
@@ -40,46 +39,6 @@ const closestSchoolIsAmongFilteredSchools = (
   return filteredSchools.some(
     (filteredSchool) => filteredSchool.objectid === closestSchoolID,
   );
-};
-
-interface RoutingMachineProps {
-  start: LatLng;
-  end: LatLng;
-}
-
-const RoutingMachine = ({ start, end }: RoutingMachineProps) => {
-  const map = useMap();
-
-  useEffect(() => {
-    if (!map) return;
-
-    const fetchRoute = async () => {
-      const apiKey = "5b3ce3597851110001cf62483147e8f114534b5fbc7f76079c0ccd63";
-      const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
-
-      try {
-        const response = await axios.get(url);
-        const coordinates = response.data.features[0].geometry.coordinates;
-        const latlngs = coordinates.map(
-          (coord: [number, number]) =>
-            [coord[1], coord[0]] as L.LatLngExpression,
-        );
-
-        const route = L.polyline(latlngs, { color: "blue" }).addTo(map);
-        map.fitBounds(route.getBounds());
-
-        return () => {
-          map.removeLayer(route);
-        };
-      } catch (error) {
-        console.error("Error fetching route", error);
-      }
-    };
-
-    fetchRoute();
-  }, [map, start, end]);
-
-  return null;
 };
 
 const Map = ({ schools, setClosestSchools }: MapProps) => {
@@ -182,15 +141,14 @@ const Map = ({ schools, setClosestSchools }: MapProps) => {
         </Marker>
       ))}
       <MapClickHandler />
-      {
-        // Render the route only when the current position and the closest school are set
-        currentClosestSchoolPosition && currentPosition[0] && (
-          <RoutingMachine
-            start={currentPosition[0]}
-            end={currentClosestSchoolPosition}
-          />
-        )
-      }
+
+      {currentClosestSchoolPosition && currentPosition.length > 0 && (
+        <RoutingMachine
+          start={currentPosition[0]}
+          end={currentClosestSchoolPosition}
+        />
+      )}
+
       {currentPosition.map((position) => (
         <Marker
           position={position}

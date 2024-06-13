@@ -16,6 +16,7 @@
     "axios": "^1.7.2",
     "clsx": "^2.1.0",
     "country-flag-icons": "^1.5.12",
+    "dotenv": "^16.4.5",
     "leaflet": "^1.9.4",
     "next": "14.1.4",
     "prettier": "^3.2.5",
