@@ -4,6 +4,7 @@ import "./globals.css";
 import AboutModal from "@/components/modals/about-modal";
 import HighAccessibilityModal from "@/components/modals/high-accessibility-modal";
 import { Providers } from "@/app/providers";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
           {children}
           <AboutModal />
           <HighAccessibilityModal />
+          <Toaster />
         </Providers>
       </body>
     </html>

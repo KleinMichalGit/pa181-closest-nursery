@@ -39,7 +39,8 @@ const RoutingMachine: React.FC<RoutingMachineProps> = ({ start, end }) => {
         map.fitBounds(routeLayerRef.current.getBounds());
       } catch (error) {
         toast.dismiss();
-        toast(
+        // TODO localisation
+        toast.warning(
           "Could not find routable point within a radius of 150.0 meters of specified coordinate",
         );
       }
