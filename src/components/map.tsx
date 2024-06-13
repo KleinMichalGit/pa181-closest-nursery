@@ -91,7 +91,11 @@ const Map = ({ schools, setClosestSchools }: MapProps) => {
     } else {
       setClosestSchools(null);
       setCurrentClosestSchoolPosition(null);
+      return;
     }
+    const closestSchool = distances[0].school;
+    const closestMarker = markersRef.current[closestSchool.properties.objectid];
+    closestMarker?.openPopup();
   }, [currentPosition, schools, setClosestSchools]);
 
   useEffect(() => {

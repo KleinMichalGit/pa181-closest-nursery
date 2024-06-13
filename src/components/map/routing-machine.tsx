@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 import L, { LatLng } from "leaflet";
 import axios from "axios";
+import { toast } from "sonner";
 
 interface RoutingMachineProps {
   start: LatLng;
@@ -37,7 +38,10 @@ const RoutingMachine: React.FC<RoutingMachineProps> = ({ start, end }) => {
         );
         map.fitBounds(routeLayerRef.current.getBounds());
       } catch (error) {
-        console.error("Error fetching route", error);
+        toast.dismiss();
+        toast(
+          "Could not find routable point within a radius of 150.0 meters of specified coordinate",
+        );
       }
     };
 
