@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 interface RoutingMachineProps {
   start: LatLng;
-  end: LatLng;
+  end: LatLng | null;
 }
 
 const RoutingMachine: React.FC<RoutingMachineProps> = ({ start, end }) => {
@@ -15,6 +15,13 @@ const RoutingMachine: React.FC<RoutingMachineProps> = ({ start, end }) => {
 
   useEffect(() => {
     const fetchRoute = async () => {
+      if (!start || !end) {
+        // Remove the previous route layer if it exists
+        if (routeLayerRef.current) {
+          map.removeLayer(routeLayerRef.current);
+        }
+        return;
+      }
       const apiKey = process.env.NEXT_PUBLIC_OPEN_ROUTE_API;
       const url = `https://api.openrouteservice.org/v2/directions/wheelchair?api_key=${apiKey}&start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
 
@@ -38,6 +45,9 @@ const RoutingMachine: React.FC<RoutingMachineProps> = ({ start, end }) => {
         );
         map.fitBounds(routeLayerRef.current.getBounds());
       } catch (error) {
+        if (routeLayerRef.current) {
+          map.removeLayer(routeLayerRef.current);
+        }
         toast.dismiss();
         // TODO localisation
         toast.warning(

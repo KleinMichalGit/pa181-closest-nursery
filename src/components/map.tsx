@@ -137,7 +137,7 @@ const Map = ({ schools, setClosestSchools }: MapProps) => {
         </Marker>
       ))}
       <MapClickHandler />
-      {currentClosestSchoolPosition && currentPosition && (
+      {currentPosition && (
         <RoutingMachine
           start={currentPosition}
           end={currentClosestSchoolPosition}
