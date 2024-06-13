@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
 import L, { LatLng } from "leaflet";
 import axios from "axios";
@@ -10,30 +10,40 @@ interface RoutingMachineProps {
 
 const RoutingMachine: React.FC<RoutingMachineProps> = ({ start, end }) => {
   const map = useMap();
+  const routeLayerRef = useRef<L.Polyline | null>(null);
 
-  if (!map) return;
+  useEffect(() => {
+    const fetchRoute = async () => {
+      const apiKey = process.env.NEXT_PUBLIC_OPEN_ROUTE_API;
+      const url = `https://api.openrouteservice.org/v2/directions/wheelchair?api_key=${apiKey}&start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
 
-  const fetchRoute = async () => {
-    const apiKey = process.env.NEXT_PUBLIC_OPEN_ROUTE_API;
-    console.log(start, end);
-    const url = `https://api.openrouteservice.org/v2/directions/wheelchair?api_key=${apiKey}&start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
+      try {
+        const response = await axios.get(url);
 
-    try {
-      const response = await axios.get(url);
-      const coordinates = response.data.features[0].geometry.coordinates;
-      const latlngs = coordinates.map(
-        (coord: [number, number]) => [coord[1], coord[0]] as L.LatLngExpression,
-      );
+        const coordinates = response.data.features[0].geometry.coordinates;
+        const latlngs = coordinates.map(
+          (coord: [number, number]) =>
+            [coord[1], coord[0]] as L.LatLngExpression,
+        );
 
-      // Add new route layer to the map
-      const newRouteLayer = L.polyline(latlngs, { color: "blue" }).addTo(map);
-      map.fitBounds(newRouteLayer.getBounds());
-    } catch (error) {
-      console.error("Error fetching route", error);
-    }
-  };
+        // Remove the previous route layer if it exists
+        if (routeLayerRef.current) {
+          map.removeLayer(routeLayerRef.current);
+        }
 
-  fetchRoute();
+        // Add new route layer to the map
+        routeLayerRef.current = L.polyline(latlngs, { color: "blue" }).addTo(
+          map,
+        );
+        map.fitBounds(routeLayerRef.current.getBounds());
+      } catch (error) {
+        console.error("Error fetching route", error);
+      }
+    };
+
+    fetchRoute();
+  }, [start, end, map]);
+
   return null;
 };
 
