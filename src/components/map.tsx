@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import {
   MapContainer,
@@ -11,6 +9,7 @@ import {
 import L, { LatLng } from "leaflet";
 import { ClosestSchoolType, MapType, SchoolProperties } from "@/types/map-type";
 import MapPopup from "@/components/map/map-popup";
+import RoutingMachine from "@/components/map/routing-machine";
 
 interface MapProps extends MapType {
   setClosestSchools: (schools: ClosestSchoolType[] | null) => void;
@@ -40,27 +39,30 @@ const closestSchoolIsAmongFilteredSchools = (
   );
 };
 
-const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
-  const [currentPosition, setCurrentPosition] = useState<LatLng[]>([]);
+const Map = ({ schools, setClosestSchools }: MapProps) => {
+  const [currentPosition, setCurrentPosition] = useState<LatLng | null>(null);
+  const [currentClosestSchoolPosition, setCurrentClosestSchoolPosition] =
+    useState<LatLng | null>(null);
   const markersRef = useRef<{ [key: string]: L.Marker }>({});
 
   const calculateClosestSchools = useCallback(() => {
-    if (currentPosition.length === 0) {
+    if (!currentPosition) {
       setClosestSchools(null);
+      setCurrentClosestSchoolPosition(null);
       return;
     }
 
     const distances = schools.map((school) => {
       const { latitude, longitude } = school.properties;
-      const distance = currentPosition[0]?.distanceTo(
+      const distance = currentPosition.distanceTo(
         new LatLng(latitude, longitude),
       );
-
       return { school, distance };
     });
 
     if (distances.length === 0) {
       setClosestSchools(null);
+      setCurrentClosestSchoolPosition(null);
       return;
     }
 
@@ -80,24 +82,30 @@ const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
           },
         })),
       );
+      setCurrentClosestSchoolPosition(
+        new LatLng(
+          distances[0].school.properties.latitude,
+          distances[0].school.properties.longitude,
+        ),
+      );
     } else {
       setClosestSchools(null);
+      setCurrentClosestSchoolPosition(null);
       return;
     }
-
     const closestSchool = distances[0].school;
     const closestMarker = markersRef.current[closestSchool.properties.objectid];
     closestMarker?.openPopup();
-  }, [currentPosition, schools]);
+  }, [currentPosition, schools, setClosestSchools]);
 
   useEffect(() => {
     calculateClosestSchools();
-  }, [currentPosition, schools]);
+  }, [currentPosition, schools, calculateClosestSchools]);
 
-  const MapClickHandler: React.FC = () => {
+  const MapClickHandler = () => {
     useMapEvents({
       click: ({ latlng }) => {
-        setCurrentPosition([new LatLng(latlng.lat, latlng.lng)]);
+        setCurrentPosition(new LatLng(latlng.lat, latlng.lng));
       },
     });
     return null;
@@ -129,15 +137,17 @@ const Map: React.FC<MapProps> = ({ schools, setClosestSchools }) => {
         </Marker>
       ))}
       <MapClickHandler />
-      {currentPosition.map((position) => (
-        <Marker
-          position={position}
-          key={position.toString()}
-          icon={currentPositionIcon}
-        >
+      {currentPosition && (
+        <RoutingMachine
+          start={currentPosition}
+          end={currentClosestSchoolPosition}
+        />
+      )}
+      {currentPosition && (
+        <Marker position={currentPosition} icon={currentPositionIcon}>
           <Popup>Your position</Popup>
         </Marker>
-      ))}
+      )}
     </MapContainer>
   );
 };
