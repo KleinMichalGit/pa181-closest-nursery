@@ -22,7 +22,7 @@ const AboutModal = () => {
         </div>
 
         <div className="py-4">
-          <img src="/path/to/example-usage.gif" alt="Example usage GIF" />
+          <img src="/Animation.gif" alt="Example usage GIF" />
         </div>
 
         <div className="modal-action">
