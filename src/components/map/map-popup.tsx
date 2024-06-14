@@ -13,14 +13,14 @@ interface MapPopupProps {
 }
 
 const MapPopup: React.FC<MapPopupProps> = ({
-                                             title,
-                                             address,
-                                             telephone,
-                                             email,
-                                             director,
-                                             website,
-                                             school_capacity,
-                                           }) => {
+  title,
+  address,
+  telephone,
+  email,
+  director,
+  website,
+  school_capacity,
+}) => {
   const { translations } = useLanguageContext();
 
   return (

@@ -2,8 +2,8 @@ import { ClosestSchoolType } from "@/types/map-type";
 import { useLanguageContext } from "@/contexts/language-context";
 
 const SideMenu = ({
-                    closestSchools,
-                  }: {
+  closestSchools,
+}: {
   closestSchools: ClosestSchoolType[] | null;
 }) => {
   const { translations } = useLanguageContext();
@@ -39,7 +39,8 @@ const SideMenu = ({
                 {translations.distance}
               </label>
               <div className="relative mb-6">
-                {Math.round(closestSchool.properties.distance)} {translations.meters}
+                {Math.round(closestSchool.properties.distance)}{" "}
+                {translations.meters}
               </div>
             </li>
             <li>
