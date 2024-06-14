@@ -1,6 +1,8 @@
 "use client";
 
 import { useLanguageContext } from "@/contexts/language-context";
+import Image from 'next/image';
+import gifImage from '/public/Animation.gif'; // Ensure you have the correct path
 
 const AboutModal = () => {
   const { translations } = useLanguageContext();
@@ -14,7 +16,7 @@ const AboutModal = () => {
         <h2 className="font-bold text-lg select-none">{translations.about}</h2>
 
         <div className="py-4">
-          {translations.aboutContent && translations.aboutContent.split('\n').map((paragraph, index) => (
+          {translations.aboutContent && translations.aboutContent.split('\n').map((paragraph: string, index: number) => (
             <p key={index} className="mb-4">
               {paragraph}
             </p>
@@ -22,7 +24,7 @@ const AboutModal = () => {
         </div>
 
         <div className="py-4">
-          <img src="/Animation.gif" alt="Example usage GIF" />
+          <Image src={gifImage} alt="Example usage GIF" />
         </div>
 
         <div className="modal-action">
@@ -41,4 +43,3 @@ const AboutModal = () => {
 };
 
 export default AboutModal;
-
