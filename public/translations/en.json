@@ -8,7 +8,7 @@
   "colorTheme": "Color Theme",
   "fontSize": "Font Size",
   "close": "Close",
-  "aboutContent": "This is a web application that shows the closest nursery school to your location. The data is provided by the Ministry of Education, Culture, Sports, Science and Technology of Japan.",
+  "aboutContent": "Welcome to our interactive map application designed to help you find the nearest nursery school with ease.\n\nThis application allows you to click on any point on the map, and it will automatically select the closest nursery relative to the position you selected. Additionally, the app calculates and displays the shortest path to the nursery.\n\nKey Features:\n- Interactive Map: Click anywhere on the map to find the nearest nursery school.\n- Shortest Path Calculation: Get the shortest route to the selected nursery.\n- Detailed Information: View detailed information about the nursery, including address, contact details, director’s name, website, and school capacity.\n- Accessibility Options: Customize your experience with various color themes, language options (Czech, English, Spanish, French, German), and adjustable font sizes.\n\nHow to Use:\n1. Select a Point on the Map: Click on any location on the map.\n2. View Nearest Nursery: The nearest nursery school will be highlighted.\n3. Get Details: See detailed information about the nursery on the side panel and on the map.\n\nBelow is an example of how to use the site:\n\n[Insert GIF showcasing the clicking on the map and highlighting the information]\n\nThank you for using our application to find the best and nearest nursery schools!",
   "small": "Small",
   "medium": "Medium",
   "large": "Large",

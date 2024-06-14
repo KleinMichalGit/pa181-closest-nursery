@@ -1,5 +1,5 @@
 {
-  "logo": "PA181 Nejbližší školka",
+  "logo": "PA181 Nejbližší Školka",
   "about": "O aplikaci",
   "accessibility": "Přístupnost",
   "search": "Hledat...",
@@ -8,20 +8,20 @@
   "colorTheme": "Barevné téma",
   "fontSize": "Velikost písma",
   "close": "Zavřít",
-  "aboutContent": "Toto je webová aplikace, která ukazuje nejbližší mateřskou školu k vaší poloze. Data poskytuje Ministerstvo školství, kultury, sportu, vědy a techniky Japonska.",
+  "aboutContent": "Vítejte v naší interaktivní mapové aplikaci, která vám pomůže snadno najít nejbližší mateřskou školu.\n\nTato aplikace vám umožňuje kliknout na jakýkoli bod na mapě a automaticky vybere nejbližší mateřskou školu relativně k vámi zvolené poloze. Kromě toho aplikace vypočítá a zobrazí nejkratší cestu do mateřské školy.\n\nKlíčové vlastnosti:\n- Interaktivní mapa: Klikněte kdekoli na mapě a najděte nejbližší mateřskou školu.\n- Výpočet nejkratší trasy: Získejte nejkratší cestu do vybrané mateřské školy.\n- Podrobné informace: Zobrazte podrobné informace o mateřské škole, včetně adresy, kontaktních údajů, jména ředitele, webové stránky a kapacity školy.\n- Možnosti přístupnosti: Přizpůsobte si své zkušenosti pomocí různých barevných témat, jazykových možností (čeština, angličtina, španělština, francouzština, němčina) a nastavitelných velikostí písma.\n\nJak používat:\n1. Vyberte bod na mapě: Klikněte na jakékoli místo na mapě.\n2. Zobrazte nejbližší školku: Nejbližší mateřská škola bude zvýrazněna.\n3. Získejte podrobnosti: Zobrazte podrobné informace o mateřské škole v postranním panelu a na mapě.\n\nNíže je příklad, jak používat tento web:\n\n[Vložte GIF ukazující klikání na mapu a zvýraznění informací]\n\nDěkujeme, že používáte naši aplikaci k nalezení nejlepších a nejbližších mateřských škol!",
   "small": "Malý",
   "medium": "Střední",
   "large": "Velký",
-  "extraLarge": "Extra velký",
-  "closestSchool": "Nejbližší škola",
+  "extraLarge": "Velmi velký",
+  "closestSchool": "Nejbližší školka",
   "title": "Název",
   "address": "Adresa",
   "distance": "Vzdálenost",
-  "meters": "metry",
+  "meters": "metrů",
   "telephone": "Telefon",
   "email": "E-mail",
   "director": "Ředitel",
   "website": "Webová stránka",
   "schoolCapacity": "Kapacita školy",
-  "notSpecified": "Neuvedeno"
+  "notSpecified": "Nespecifikováno"
 }

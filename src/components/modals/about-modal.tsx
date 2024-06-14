@@ -14,7 +14,15 @@ const AboutModal = () => {
         <h2 className="font-bold text-lg select-none">{translations.about}</h2>
 
         <div className="py-4">
-          <p>{translations.aboutContent}</p>
+          {translations.aboutContent && translations.aboutContent.split('\n').map((paragraph, index) => (
+            <p key={index} className="mb-4">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+
+        <div className="py-4">
+          <img src="/path/to/example-usage.gif" alt="Example usage GIF" />
         </div>
 
         <div className="modal-action">
@@ -33,3 +41,4 @@ const AboutModal = () => {
 };
 
 export default AboutModal;
+
