@@ -56,7 +56,7 @@ const RoutingMachine: React.FC<RoutingMachineProps> = ({ start, end }) => {
     };
 
     fetchRoute();
-  }, [start, end, map]);
+  }, [start, end, map, translations.noRouteFound]);
 
   return null;
 };
