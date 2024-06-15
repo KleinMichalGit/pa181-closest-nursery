@@ -3,7 +3,7 @@ import { useMap } from "react-leaflet";
 import L, { LatLng } from "leaflet";
 import axios from "axios";
 import { toast } from "sonner";
-import {useLanguageContext} from "@/contexts/language-context";
+import { useLanguageContext } from "@/contexts/language-context";
 
 interface RoutingMachineProps {
   start: LatLng;

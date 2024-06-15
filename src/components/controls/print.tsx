@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { FaPrint } from "react-icons/fa";
 import { ClosestSchoolType } from "@/types/map-type";
-import {useLanguageContext} from "@/contexts/language-context";
+import { useLanguageContext } from "@/contexts/language-context";
 
 type PrintType = {
   closestSchools: ClosestSchoolType[];
@@ -42,7 +42,9 @@ const Print = ({ closestSchools, isInMobileMenu }: PrintType) => {
               <th>{translations.address}</th>
               <th>{translations.telephone}</th>
               <th>{translations.email}</th>
-              <th>{translations.distance} ({translations.meters})</th>
+              <th>
+                {translations.distance} ({translations.meters})
+              </th>
             </tr>
           </thead>
           <tbody>

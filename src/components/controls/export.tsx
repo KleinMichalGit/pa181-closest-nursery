@@ -2,7 +2,7 @@ import React from "react";
 import { CSVLink } from "react-csv";
 import { FaFileCsv } from "react-icons/fa";
 import { ClosestSchoolType } from "@/types/map-type";
-import {useLanguageContext} from "@/contexts/language-context";
+import { useLanguageContext } from "@/contexts/language-context";
 
 interface ExportProps {
   closestSchools: ClosestSchoolType[];
@@ -20,7 +20,10 @@ const Export: React.FC<ExportProps> = ({ closestSchools, isInMobileMenu }) => {
     { label: translations.director, key: "director" },
     { label: translations.website, key: "website" },
     { label: translations.schoolCapacity, key: "school_capacity" },
-    { label: translations.distance + " (" + translations.meters + ")", key: "distance" },
+    {
+      label: translations.distance + " (" + translations.meters + ")",
+      key: "distance",
+    },
   ];
 
   const escapeCsvField = (field: string) => {
