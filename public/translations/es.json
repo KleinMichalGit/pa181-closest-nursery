@@ -2,6 +2,9 @@
   "logo": "PA181 Guardería Más Cercana",
   "about": "Acerca de",
   "accessibility": "Accesibilidad",
+  "export": "Exportar",
+  "print": "Imprimir",
+  "kClosest": "k-ésimo más cercano",
   "search": "Buscar...",
   "beforeSelectingCurrentPosition": "Para mostrar la guardería más cercana, haga clic en el mapa para establecer su ubicación.",
   "language": "Idioma",
@@ -23,5 +26,7 @@
   "director": "Director",
   "website": "Sitio web",
   "schoolCapacity": "Capacidad de la escuela",
-  "notSpecified": "No especificado"
+  "notSpecified": "No especificado",
+  "noRouteFound": "No se encontró un punto enrutado dentro de un radio de 150,0 metros de la coordenada especificada",
+  "unexpectedError": "Ocurrió un error inesperado. Por favor, inténtelo de nuevo."
 }

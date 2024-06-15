@@ -121,14 +121,14 @@ const Navigation = ({ setFilter, closestSchools }: NavigationType) => {
               <li>
                 <NavItem
                   id={"about"}
-                  text={"About"}
+                  text={translations.about}
                   toggleDropdown={toggleDropdown}
                 />
               </li>
               <li>
                 <NavItem
                   id="accessibility"
-                  text="Accessibility"
+                  text={translations.accessibility}
                   toggleDropdown={toggleDropdown}
                 />
               </li>

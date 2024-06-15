@@ -2,6 +2,7 @@ import React from "react";
 import { CSVLink } from "react-csv";
 import { FaFileCsv } from "react-icons/fa";
 import { ClosestSchoolType } from "@/types/map-type";
+import { useLanguageContext } from "@/contexts/language-context";
 
 interface ExportProps {
   closestSchools: ClosestSchoolType[];
@@ -9,17 +10,20 @@ interface ExportProps {
 }
 
 const Export: React.FC<ExportProps> = ({ closestSchools, isInMobileMenu }) => {
-  // TODO add localisation here into labels
+  const { translations } = useLanguageContext();
   const headers = [
-    { label: "k-th closest", key: "kthclosest" },
-    { label: "title", key: "title" },
-    { label: "address", key: "address" },
-    { label: "telephone", key: "telephone" },
-    { label: "email", key: "email" },
-    { label: "director", key: "director" },
-    { label: "website", key: "website" },
-    { label: "school capacity", key: "school_capacity" },
-    { label: "distance (meters)", key: "distance" },
+    { label: translations.kClosest, key: "kthclosest" },
+    { label: translations.title, key: "title" },
+    { label: translations.address, key: "address" },
+    { label: translations.telephone, key: "telephone" },
+    { label: translations.email, key: "email" },
+    { label: translations.director, key: "director" },
+    { label: translations.website, key: "website" },
+    { label: translations.schoolCapacity, key: "school_capacity" },
+    {
+      label: translations.distance + " (" + translations.meters + ")",
+      key: "distance",
+    },
   ];
 
   const escapeCsvField = (field: string) => {
@@ -49,7 +53,7 @@ const Export: React.FC<ExportProps> = ({ closestSchools, isInMobileMenu }) => {
       style={{ transform: "translateY(4px)" }}
       target="_blank"
     >
-      {isInMobileMenu && "Export"}
+      {isInMobileMenu && translations.export}
       <FaFileCsv />
     </CSVLink>
   );

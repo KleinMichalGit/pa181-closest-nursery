@@ -26,7 +26,8 @@ const MapPopup: React.FC<MapPopupProps> = ({
   return (
     <Popup>
       <div>
-        <strong>{title}</strong>
+        <strong>{translations.title}</strong>
+        {title}
         <br />
 
         <strong>{translations.address}: </strong>

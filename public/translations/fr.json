@@ -2,6 +2,9 @@
   "logo": "PA181 École Maternelle la Plus Proche",
   "about": "À propos",
   "accessibility": "Accessibilité",
+  "export": "Exporter",
+  "print": "Imprimer",
+  "kClosest": "k-ième plus proche",
   "search": "Rechercher...",
   "beforeSelectingCurrentPosition": "Pour afficher l'école maternelle la plus proche, veuillez cliquer sur la carte pour définir votre position.",
   "language": "Langue",
@@ -23,5 +26,7 @@
   "director": "Directeur",
   "website": "Site web",
   "schoolCapacity": "Capacité de l'école",
-  "notSpecified": "Non spécifié"
+  "notSpecified": "Non spécifié",
+  "noRouteFound": "Aucun point routable trouvé dans un rayon de 150,0 mètres de la coordonnée spécifiée",
+  "unexpectedError": "Une erreur inattendue est survenue. Veuillez réessayer."
 }

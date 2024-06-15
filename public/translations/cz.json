@@ -2,6 +2,9 @@
   "logo": "PA181 Nejbližší Školka",
   "about": "O aplikaci",
   "accessibility": "Přístupnost",
+  "export": "Exportovat",
+  "print": "Tisknout",
+  "kClosest": "k-tý nejbližší",
   "search": "Hledat...",
   "beforeSelectingCurrentPosition": "Chcete-li zobrazit nejbližší mateřskou školu, klikněte na mapu a nastavte svou polohu.",
   "language": "Jazyk",
@@ -23,5 +26,7 @@
   "director": "Ředitel",
   "website": "Webová stránka",
   "schoolCapacity": "Kapacita školy",
-  "notSpecified": "Nespecifikováno"
+  "notSpecified": "Nespecifikováno",
+  "noRouteFound": "V okruhu 150,0 metrů od zadané souřadnice nebyl nalezen žádný trasovatelný bod",
+  "unexpectedError": "Došlo k neočekávané chybě. Zkuste to prosím znovu."
 }

@@ -3,6 +3,7 @@ import { useMap } from "react-leaflet";
 import L, { LatLng } from "leaflet";
 import axios from "axios";
 import { toast } from "sonner";
+import { useLanguageContext } from "@/contexts/language-context";
 
 interface RoutingMachineProps {
   start: LatLng;
@@ -11,6 +12,7 @@ interface RoutingMachineProps {
 
 const RoutingMachine: React.FC<RoutingMachineProps> = ({ start, end }) => {
   const map = useMap();
+  const { translations } = useLanguageContext();
   const routeLayerRef = useRef<L.Polyline | null>(null);
 
   useEffect(() => {
@@ -49,10 +51,7 @@ const RoutingMachine: React.FC<RoutingMachineProps> = ({ start, end }) => {
           map.removeLayer(routeLayerRef.current);
         }
         toast.dismiss();
-        // TODO localisation
-        toast.warning(
-          "Could not find routable point within a radius of 150.0 meters of specified coordinate",
-        );
+        toast.warning(translations.noRouteFound);
       }
     };
 
