@@ -19,6 +19,7 @@ to search for a suitable nursery school. Since parents are usually people at a p
 will enable them to invest more time into economically productive activities. As a byproduct, it is supposed to increase local GDP.
 
 ## About
+
 Welcome to our interactive map application designed to help you find the nearest nursery school with ease.
 
 This application allows you to click on any point on the map, and it will automatically select the closest nursery relative to the position you selected. Additionally, the app calculates and displays the shortest obstacle-free path to the nursery.
@@ -53,7 +54,6 @@ Thank you for using our application to find the best and nearest nursery schools
 
 [open route service](https://api.openrouteservice.org/)
 We use this service to calculate the wheelchair accessible route between the user's location and the closest nursery school.
-
 
 ### Potential customers:
 
