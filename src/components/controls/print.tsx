@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { FaPrint } from "react-icons/fa";
 import { ClosestSchoolType } from "@/types/map-type";
+import {useLanguageContext} from "@/contexts/language-context";
 
 type PrintType = {
   closestSchools: ClosestSchoolType[];
@@ -9,6 +10,7 @@ type PrintType = {
 
 const Print = ({ closestSchools, isInMobileMenu }: PrintType) => {
   const printRef = useRef<HTMLDivElement>(null);
+  const { translations } = useLanguageContext();
 
   const handlePrint = () => {
     if (printRef.current) {
@@ -21,7 +23,6 @@ const Print = ({ closestSchools, isInMobileMenu }: PrintType) => {
     }
   };
 
-  // TODO add localisation of table headers
   return (
     <>
       <button
@@ -29,19 +30,19 @@ const Print = ({ closestSchools, isInMobileMenu }: PrintType) => {
         className="flex px-3 my-2.5 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
         style={{ transform: "translateY(4px)" }}
       >
-        {isInMobileMenu && "Print"}
+        {isInMobileMenu && translations.print}
         <FaPrint />
       </button>
       <div ref={printRef} style={{ display: "none" }}>
         <table>
           <thead>
             <tr>
-              <th>k-th closest</th>
-              <th>title</th>
-              <th>address</th>
-              <th>telephone</th>
-              <th>email</th>
-              <th>distance (meters)</th>
+              <th>{translations.kClosest}</th>
+              <th>{translations.title}</th>
+              <th>{translations.address}</th>
+              <th>{translations.telephone}</th>
+              <th>{translations.email}</th>
+              <th>{translations.distance} ({translations.meters})</th>
             </tr>
           </thead>
           <tbody>

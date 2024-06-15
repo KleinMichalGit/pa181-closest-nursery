@@ -2,6 +2,9 @@
   "logo": "PA181 Nächster Kindergarten",
   "about": "Über",
   "accessibility": "Barrierefreiheit",
+  "export": "Exportieren",
+  "print": "Drucken",
+  "kClosest": "k-nächstgelegene",
   "search": "Suchen...",
   "beforeSelectingCurrentPosition": "Um den nächsten Kindergarten anzuzeigen, klicken Sie bitte auf die Karte, um Ihren Standort festzulegen.",
   "language": "Sprache",
@@ -23,5 +26,8 @@
   "director": "Direktor",
   "website": "Webseite",
   "schoolCapacity": "Schulkapazität",
-  "notSpecified": "Nicht angegeben"
+  "notSpecified": "Nicht angegeben",
+  "noRouteFound": "Kein routenfähiger Punkt innerhalb eines Radius von 150,0 Metern von der angegebenen Koordinate gefunden",
+  "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+
 }
