@@ -2,7 +2,7 @@
 
 import { useLanguageContext } from "@/contexts/language-context";
 import Image from "next/image";
-import gifImage from "/public/Animation.gif"; // Ensure you have the correct path
+import gifImage from "/public/Animation.gif";
 
 const AboutModal = () => {
   const { translations } = useLanguageContext();
@@ -13,7 +13,7 @@ const AboutModal = () => {
       aria-label={translations.about}
     >
       <div className="modal-box">
-        <h2 className="font-bold text-lg select-none">{translations.about}</h2>
+        <h2 className="font-bold select-none">{translations.about}</h2>
 
         <div className="py-4">
           {translations.aboutContent &&
