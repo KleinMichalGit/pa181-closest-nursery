@@ -18,10 +18,42 @@ therefore, the health of local citizens. The service is expected to simplify par
 to search for a suitable nursery school. Since parents are usually people at a productive age, increasing the amount of free time
 will enable them to invest more time into economically productive activities. As a byproduct, it is supposed to increase local GDP.
 
-### What datasets will we need:
+## About
+Welcome to our interactive map application designed to help you find the nearest nursery school with ease.
 
-[dataset url](https://data.brno.cz/datasets/f7b8d8d9beb54b158a6bcd25b8b902da_0/explore?location=49.202213%2C16.592108%2C10.66&showTable=true)
+This application allows you to click on any point on the map, and it will automatically select the closest nursery relative to the position you selected. Additionally, the app calculates and displays the shortest obstacle-free path to the nursery.
+
+### Key Features:
+
+- Interactive Map: Click anywhere on the map to find the nearest nursery school.
+
+- Shortest Path Calculation: Get the shortest route to the selected nursery.
+
+- Detailed Information: View detailed information about the nursery, including address, contact details, director’s name, website, and school capacity.
+
+- Accessibility Options: Customize your experience with various color themes, language options (Czech, English, Spanish, French, German), and adjustable font sizes.
+
+### How to Use:
+
+1. Select a Point on the Map: Click on any location on the map.
+
+2. View Nearest Nursery: The nearest nursery school will be highlighted.
+
+3. Get Details: See detailed information about the nursery on the side panel and on the map.
+
+Below is an example of how to use the site:
+![example usage](/public/Animation.gif)
+
+Thank you for using our application to find the best and nearest nursery schools!
+
+### Datasets we use:
+
+[dataset url](https://gis.brno.cz/ags1/rest/services/ODAE/ODAE_zapis_ms/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson)
 (the dataset is expected to update since the enrolment into nursery schools is still ongoing)
+
+[open route service](https://api.openrouteservice.org/)
+We use this service to calculate the wheelchair accessible route between the user's location and the closest nursery school.
+
 
 ### Potential customers:
 
